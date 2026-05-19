@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Guardian Bus - Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#131b2e",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "surface-container-high": "#e6e8ea",
+                      "surface-bright": "#f7f9fb",
+                      "on-secondary-container": "#006172",
+                      "surface": "#f7f9fb",
+                      "surface-container": "#eceef0",
+                      "on-primary": "#ffffff",
+                      "tertiary": "#000000",
+                      "on-tertiary-fixed": "#00201c",
+                      "on-background": "#191c1e",
+                      "on-secondary-fixed": "#001f26",
+                      "on-tertiary-fixed-variant": "#005048",
+                      "on-surface": "#191c1e",
+                      "surface-container-highest": "#e0e3e5",
+                      "secondary": "#00687a",
+                      "on-secondary-fixed-variant": "#004e5c",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#4fdbc8",
+                      "on-surface-variant": "#45464d",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-primary-container": "#7c839b",
+                      "secondary-container": "#57dffe",
+                      "outline-variant": "#c6c6cd",
+                      "surface-dim": "#d8dadc",
+                      "on-tertiary": "#ffffff",
+                      "surface-variant": "#e0e3e5",
+                      "tertiary-fixed": "#71f8e4",
+                      "inverse-surface": "#2d3133",
+                      "tertiary-container": "#00201c",
+                      "on-tertiary-container": "#009485",
+                      "on-primary-fixed": "#131b2e",
+                      "primary": "#000000",
+                      "surface-container-low": "#f2f4f6",
+                      "surface-tint": "#565e74",
+                      "secondary-fixed": "#acedff",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#dae2fd",
+                      "outline": "#76777d",
+                      "secondary-fixed-dim": "#4cd7f6",
+                      "error": "#ba1a1a",
+                      "primary-fixed-dim": "#bec6e0",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "background": "#f7f9fb",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#bec6e0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding-desktop": "40px",
+                      "section-margin": "64px",
+                      "gutter": "24px",
+                      "card-gap": "24px",
+                      "container-padding-mobile": "20px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "headline-xl": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "display-lg-mobile": ["Inter"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+          },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Glassmorphism utility base */
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="bg-white/70 backdrop-blur-3xl fixed left-0 top-0 h-full w-64 border-r border-white/10 shadow-[0_20px_40px_rgba(15,23,42,0.08)] z-50 flex flex-col py-gutter">
+<!-- Header/Logo -->
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container icon-fill">directions_bus</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Guardian Bus</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Admin Command Center</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<ul class="flex flex-col space-y-2 flex-1">
+<!-- Active Item -->
+<li>
+<a class="flex items-center gap-3 py-3 text-secondary font-bold border-l-4 border-secondary pl-3 hover:bg-white/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined icon-fill">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+</li>
+<!-- Inactive Items -->
+<li>
+<a class="flex items-center gap-3 py-3 text-on-surface-variant pl-4 hover:bg-white/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-md text-label-md">Live Tracking</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 text-on-surface-variant pl-4 hover:bg-white/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 text-on-surface-variant pl-4 hover:bg-white/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">how_to_reg</span>
+<span class="font-label-md text-label-md">Attendance</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 text-on-surface-variant pl-4 hover:bg-white/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">route</span>
+<span class="font-label-md text-label-md">Routes</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 text-on-surface-variant pl-4 hover:bg-white/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">directions_bus</span>
+<span class="font-label-md text-label-md">Drivers</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 text-on-surface-variant pl-4 hover:bg-white/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-md text-label-md">Notifications</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 text-on-surface-variant pl-4 hover:bg-white/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 text-on-surface-variant pl-4 hover:bg-white/10 transition-all duration-300 mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen relative">
+<!-- TopNavBar -->
+<header class="bg-white/80 backdrop-blur-[20px] sticky top-0 w-full z-40 border-b border-white/10 shadow-sm flex justify-between items-center px-container-padding-desktop h-20">
+<div class="flex items-center">
+<h2 class="font-headline-md text-headline-md font-semibold text-primary">Overview</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-secondary transition-colors duration-200">
+<span class="material-symbols-outlined">sync</span>
+</button>
+<button class="text-on-surface-variant hover:text-secondary transition-colors duration-200 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant/30"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right hidden md:block">
+<p class="font-label-md text-label-md text-primary">Sarah Jenkins</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Administrator</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant/20 group-hover:ring-2 ring-secondary-container transition-all">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a female school administrator in a modern, well-lit office setting. The lighting is bright and clean, emphasizing a trustworthy and competent demeanor. She is wearing subtle business attire. The background is slightly blurred but suggests a contemporary educational facility, aligning with a premium light-mode UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzEKSeEaiEDxZ6zYHzv1oolsyemPO925rDO9sLTFCmbHL3XaEuH_rsrwgfvbyxr1RrH64uUBXfNcVdQn33432svSiOJDoPPuL2m4OYT9mJtbzP8JoJ_KnO-7PtEib5s_UdnqNIqKF7mHveyZfh4dGi_g8Nx78aQKu11oDoW8O7wtn_gHtZX8muIhuLbdhiBOzkP2FxIG3XGQVQYDxR9XlF7AlTfFoOUf40Ue7r9ewY0yw-5WzoibcOPvZrjy8g6u6lkl0184_BQVw"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-container-padding-desktop flex-1 flex flex-col gap-card-gap">
+<!-- Stats Row -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-1 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary-container/20 rounded-full blur-xl"></div>
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">directions_bus</span> Active Buses
+                        </span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-primary font-bold">12</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">/15</span>
+</div>
+</div>
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">groups</span> Students Onboard
+                        </span>
+<span class="font-headline-xl text-headline-xl text-primary font-bold">458</span>
+</div>
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">nfc</span> RFID Scans Today
+                        </span>
+<span class="font-headline-xl text-headline-xl text-primary font-bold">892</span>
+</div>
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-1 relative">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-lg text-error">warning</span> Delayed Buses
+                        </span>
+<span class="font-headline-xl text-headline-xl text-error font-bold">2</span>
+</div>
+<div class="glass-panel rounded-xl p-5 flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-lg text-on-tertiary-container">how_to_reg</span> Attendance
+                        </span>
+<span class="font-headline-xl text-headline-xl text-on-tertiary-container font-bold">94%</span>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-card-gap flex-1">
+<!-- Left Column (Span 8) -->
+<div class="xl:col-span-8 flex flex-col gap-card-gap">
+<!-- Hero Map -->
+<div class="glass-panel rounded-xl overflow-hidden relative h-[400px] flex flex-col">
+<div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/40 z-10">
+<h3 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+                                    Live Fleet Map
+                                </h3>
+<button class="font-label-sm text-label-sm px-3 py-1.5 bg-white/50 hover:bg-white rounded-full border border-outline-variant/20 transition-colors">
+                                    Expand View
+                                </button>
+</div>
+<!-- Map Image Placeholder -->
+<div class="flex-1 relative w-full h-full bg-surface-container-low" data-location="Suburban Area Map" style="">
+<img alt="Live Map View" class="w-full h-full object-cover opacity-80 mix-blend-luminosity" data-alt="A clean, minimalist digital map interface showing a suburban grid, styled similarly to a high-end rideshare app in light mode. The map features soft gray roads on a pristine white and pale blue background. Subtle glowing blue and green dots represent moving vehicles and stops, emphasizing technological precision and safety tracking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCij9_pHQDnnbuwQMnJ2VyXDgirkfe4L3ILK2mywYbYes7wy1TE9fcqatUzZ2jpCRoeRpZZxZivhIrirSk8WtGMKokbATG0Xu_pobVoraX38pg4Mliy1AfGYwe93_eKhox0NwJWMZ_l5V5jSFuFgYB5bv1vD3ygQrTJSC8-aOqoEYi_2zPhgmbJUUkMDK-xnF35tKwfzTGn25HsNkyTIrWWvt15ys4hHJeFFnCMOV1p5yknwgBXGjFdMd-ZK9iYXC00LUkbW_gzfgc"/>
+<!-- Simulated UI Overlays on Map -->
+<div class="absolute top-1/4 left-1/3 flex flex-col items-center">
+<div class="bg-secondary text-on-secondary px-3 py-1 rounded-full font-label-sm text-label-sm shadow-md mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">directions_bus</span> Bus 12
+                                    </div>
+<div class="w-4 h-4 rounded-full bg-secondary border-2 border-white shadow-lg relative">
+<div class="absolute inset-0 rounded-full bg-secondary animate-ping opacity-50"></div>
+</div>
+</div>
+<div class="absolute bottom-1/3 right-1/4 flex flex-col items-center">
+<div class="bg-error text-on-error px-3 py-1 rounded-full font-label-sm text-label-sm shadow-md mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Bus 04
+                                    </div>
+<div class="w-4 h-4 rounded-full bg-error border-2 border-white shadow-lg"></div>
+</div>
+</div>
+</div>
+<!-- Attendance Table -->
+<div class="glass-panel rounded-xl flex flex-col flex-1">
+<div class="p-6 border-b border-white/10 flex justify-between items-center">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">Recent Scans</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Live RFID terminal updates</p>
+</div>
+<div class="flex gap-2">
+<input class="bg-white/50 border border-outline-variant/30 rounded-lg px-4 py-2 font-body-sm text-body-sm focus:ring-2 focus:ring-secondary-container outline-none w-64" placeholder="Search student..." type="text"/>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/10 text-on-surface-variant font-label-sm text-label-sm bg-white/20">
+<th class="py-4 px-6 font-medium">Student</th>
+<th class="py-4 px-6 font-medium">Bus &amp; Route</th>
+<th class="py-4 px-6 font-medium">Time</th>
+<th class="py-4 px-6 font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-background">
+<!-- Row 1 -->
+<tr class="border-b border-outline-variant/10 hover:bg-white/40 transition-colors">
+<td class="py-3 px-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container overflow-hidden">
+<img alt="Aarav Sharma" class="w-full h-full object-cover" data-alt="A portrait of a young male student with dark hair, looking bright and attentive. Taken against a neutral, light background to fit perfectly within a small circular avatar frame in a premium user interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCYBrQUlrlAXm7zFgKrLc8ue0lYz8QhzXCMNHaQ8QrvHypMEeA3RAVF8VZ_Yf0ZZ2Wx8SF0dgncSv0EDAXCS3-crIFh5VR_ymUPs-3qSxSuOBIJOFLUb5cQOwVpChotWY2314dLZlAFWboJn9Q2_nd5868fMxrAMunmBx6FMuM-3Jdi5nXf000yeI1mP5a8bL5rXZlSobg6mw7pCdfTL6UGL0yhlMcij1srqUZvbPIUek_W1gDpGJtg_C15wsU6UoDZelyMI861u0"/>
+</div>
+<span class="font-medium">Aarav Sharma</span>
+</td>
+<td class="py-3 px-6 text-on-surface-variant">Bus 12 (Northwood)</td>
+<td class="py-3 px-6 text-on-surface-variant">08:15 AM</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span> Boarded
+                                                </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-outline-variant/10 hover:bg-white/40 transition-colors">
+<td class="py-3 px-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container overflow-hidden">
+<img alt="Maya Lin" class="w-full h-full object-cover" data-alt="A portrait of a young female student with glasses and a subtle smile. The lighting is soft and even, optimized for a small UI avatar thumbnail against a light mode dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6ZYUJ0BokcuqsWse_ATZUH_dmJhHnTMsBacKBxtISgBnIlyyQ9ft9TEHGYFWRfpWrZN8HmFCC1Sf-0_9Wvy9c427pUeujOK8gZGghuErpBNwlSa5YUtBEiG_xSsx7R4914kWzvBlyxXguf70X9R1sKSPPu0W74l0d9WAYxJR7g6Ozen5GC7fKMjnDUQ2hDh7wtj1EgK9nWjjhG9_blbUMCAPRPBfA9kNy-aBH05aj2gjHyKlDVwDTqT-pWRVbC6BJUSdouL0AEng"/>
+</div>
+<span class="font-medium">Maya Lin</span>
+</td>
+<td class="py-3 px-6 text-on-surface-variant">Bus 04 (Oakridge)</td>
+<td class="py-3 px-6 text-on-surface-variant">08:12 AM</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Exited
+                                                </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-outline-variant/10 hover:bg-white/40 transition-colors">
+<td class="py-3 px-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant font-medium text-xs">
+                                                    JD
+                                                </div>
+<span class="font-medium">Julian Davis</span>
+</td>
+<td class="py-3 px-6 text-on-surface-variant">Bus 12 (Northwood)</td>
+<td class="py-3 px-6 text-on-surface-variant">08:10 AM</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span> Boarded
+                                                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 text-center border-t border-white/10 mt-auto">
+<a class="font-label-sm text-label-sm text-secondary hover:text-on-secondary-container transition-colors" href="#">View All Records →</a>
+</div>
+</div>
+</div>
+<!-- Right Column (Span 4) -->
+<div class="xl:col-span-4 flex flex-col gap-card-gap">
+<!-- Driver Card -->
+<div class="glass-panel rounded-xl p-6 flex flex-col gap-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-bl-full z-0"></div>
+<div class="flex justify-between items-start z-10">
+<h3 class="font-headline-md text-headline-md text-primary">Active Driver Focus</h3>
+<span class="bg-secondary-container text-on-secondary-container px-2.5 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sensors</span> On Trip
+                                </span>
+</div>
+<div class="flex items-center gap-4 mt-2 z-10">
+<div class="w-16 h-16 rounded-full bg-surface-container border-2 border-white shadow-sm overflow-hidden">
+<img alt="Marcus Johnson" class="w-full h-full object-cover" data-alt="A portrait of a male bus driver wearing a neat, professional uniform shirt. He has a friendly, reassuring expression. The image is bright and cleanly lit, styled to fit into a modern, light-themed safety dashboard as a profile avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiE09aiBr15775kTRK6Af_fSF-Qss6Lh8U9p1THaqw17u6KRcZiQUDvqskl9j0nqOGxIDZpqTkTK7OolWWlsfGCU1iAdC2-iR1oYLDrfmj21eC68WAy5xu2Ufb4FmDsm5dY8Jjstbp7MUmKb83i7QruxDCyTSBTpWjZ2lq3_TgBz5oeTe8UpnVfmvGkOBSMOIFdGt0FhWU56RXL-gKiLFrPOeZVYaO3mxfByPE_otDXtCJVVXMxT9jW9_LjeKzJszy9ZkhXj_nnC8"/>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold text-primary">Marcus Johnson</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">route</span> Route A - Northwood
+                                    </p>
+</div>
+</div>
+<div class="bg-surface-bright/50 rounded-lg p-4 border border-outline-variant/20 mt-2 z-10 flex justify-between items-center">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Assigned Vehicle</p>
+<p class="font-body-md text-body-md font-medium text-primary">Bus #12</p>
+</div>
+<button class="w-10 h-10 rounded-full bg-white hover:bg-surface-container transition-colors shadow-sm border border-outline-variant/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">call</span>
+</button>
+</div>
+</div>
+<!-- Real-time RFID Log Panel -->
+<div class="glass-panel rounded-xl flex flex-col flex-1 overflow-hidden">
+<div class="p-5 border-b border-white/10 bg-white/40 flex justify-between items-center">
+<h3 class="font-body-lg text-body-lg font-semibold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">history</span>
+                                    Live Event Log
+                                </h3>
+</div>
+<div class="flex-1 p-5 overflow-y-auto space-y-4">
+<!-- Log Item -->
+<div class="flex gap-3 items-start relative">
+<div class="absolute left-[11px] top-6 bottom-[-16px] w-px bg-outline-variant/20"></div>
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center shrink-0 z-10 border-2 border-white">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">logout</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-primary">
+<span class="font-medium">Riya Kapoor</span> exited at <span class="font-medium">Stop 4</span>
+</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">2m ago • Bus 04</p>
+</div>
+</div>
+<!-- Log Item -->
+<div class="flex gap-3 items-start relative">
+<div class="absolute left-[11px] top-6 bottom-[-16px] w-px bg-outline-variant/20"></div>
+<div class="w-6 h-6 rounded-full bg-tertiary-fixed/40 flex items-center justify-center shrink-0 z-10 border-2 border-white">
+<span class="material-symbols-outlined text-[14px] text-on-tertiary-fixed-variant">login</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-primary">
+<span class="font-medium">Aarav Sharma</span> boarded <span class="font-medium">Bus 12</span>
+</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">5m ago • Main Campus</p>
+</div>
+</div>
+<!-- Log Item -->
+<div class="flex gap-3 items-start relative">
+<div class="absolute left-[11px] top-6 bottom-[-16px] w-px bg-outline-variant/20"></div>
+<div class="w-6 h-6 rounded-full bg-tertiary-fixed/40 flex items-center justify-center shrink-0 z-10 border-2 border-white">
+<span class="material-symbols-outlined text-[14px] text-on-tertiary-fixed-variant">login</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-primary">
+<span class="font-medium">Julian Davis</span> boarded <span class="font-medium">Bus 12</span>
+</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">7m ago • Main Campus</p>
+</div>
+</div>
+<!-- Log Item -->
+<div class="flex gap-3 items-start relative">
+<div class="w-6 h-6 rounded-full bg-error-container flex items-center justify-center shrink-0 z-10 border-2 border-white">
+<span class="material-symbols-outlined text-[14px] text-on-error-container">warning</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-primary">
+<span class="font-medium">Bus 08</span> reported minor traffic delay.
+                                        </p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">12m ago • Route C</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
