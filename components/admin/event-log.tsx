@@ -56,10 +56,10 @@ export const EventLog: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                className="border-b border-slate-100/90 px-6 py-4 transition-colors hover:bg-slate-50/70 sm:px-7"
+                className="border-b border-[#e0e3e5]/90 px-6 py-4 transition-colors hover:bg-white/65 sm:px-7"
               >
                 <div className="flex items-start gap-4">
-                  <div className={`mt-0.5 grid h-11 w-11 flex-none place-items-center rounded-2xl ${isAlert ? 'bg-rose-50 text-rose-600' : 'bg-slate-100 text-slate-600'}`}>
+                  <div className={`mt-0.5 grid h-11 w-11 flex-none place-items-center rounded-[1.15rem] ${isAlert ? 'bg-[#ba1a1a] text-white' : 'bg-white/75 text-[#45464d]'}`}>
                     <Icon
                       className="h-5 w-5"
                       aria-hidden="true"
@@ -67,14 +67,14 @@ export const EventLog: React.FC = () => {
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <p className={`text-sm font-medium tracking-[-0.01em] ${isAlert ? 'text-rose-900' : 'text-slate-900'}`}>
+                    <p className={`text-sm font-medium tracking-[-0.01em] ${isAlert ? 'text-[#ba1a1a]' : 'text-[#191c1e]'}`}>
                       {log.description}
                     </p>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">{log.timestamp}</p>
+                    <p className="mt-1 text-xs leading-5 text-[#45464d]">{log.timestamp}</p>
                   </div>
 
                   {isAlert && (
-                    <div className="flex-none rounded-full bg-rose-100 px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-rose-700 ring-1 ring-rose-200">
+                    <div className="flex-none rounded-full bg-[#ffdad6] px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] text-[#93000a] ring-1 ring-[#ffdad6]">
                       Delay
                     </div>
                   )}

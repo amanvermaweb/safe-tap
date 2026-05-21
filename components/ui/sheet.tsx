@@ -121,7 +121,7 @@ function SheetContent({
           <motion.button
             key="sheet-backdrop"
             type="button"
-            className="fixed inset-0 z-40 bg-slate-950/25"
+            className="fixed inset-0 z-40 bg-[#191c1e]/30 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -136,15 +136,15 @@ function SheetContent({
             exit={{ x: side === "left" ? -380 : 380, opacity: 0.8 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
             className={cn(
-              "fixed bottom-0 top-0 z-50 w-[86vw] max-w-sm border-r border-slate-200 bg-white p-4 shadow-[0_24px_50px_-28px_rgba(15,23,42,0.35)]",
-              side === "left" ? "left-0" : "right-0 border-r-0 border-l",
+              "fixed bottom-0 top-0 z-50 w-[86vw] max-w-sm border border-white/60 bg-white/82 p-4 backdrop-blur-3xl shadow-[0_24px_50px_-28px_rgba(15,23,42,0.35)]",
+              side === "left" ? "left-0 rounded-r-4xl border-l-0" : "right-0 rounded-l-4xl border-r-0 border-l",
               className
             )}
           >
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+              className="absolute right-4 top-4 rounded-full p-1.5 text-[#45464d] transition hover:bg-[#eceef0] hover:text-[#191c1e]"
               aria-label="Close sheet"
             >
               <X className="h-4 w-4" />
@@ -162,11 +162,11 @@ function SheetHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
 }
 
 function SheetTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
-  return <h2 className={cn("text-sm font-semibold text-slate-900", className)} {...props} />;
+  return <h2 className={cn("text-sm font-semibold text-[#191c1e]", className)} {...props} />;
 }
 
 function SheetDescription({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
-  return <p className={cn("text-sm text-slate-500", className)} {...props} />;
+  return <p className={cn("text-sm text-[#45464d]", className)} {...props} />;
 }
 
 export {

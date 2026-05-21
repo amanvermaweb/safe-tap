@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { Search, CheckCircle2, XCircle, Clock3, BadgeCheck } from 'lucide-react';
+import Link from 'next/link';
+import { Search, XCircle, Clock3, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { students } from '@/lib/data';
 import { DashboardCard } from '@/components/admin/dashboard-card';
@@ -37,7 +38,7 @@ export const RecentScans: React.FC = () => {
             avatar: 'AS',
           },
           ...(next ? [next, ...rest] : rest),
-        ].slice(0, 6) as typeof students;
+        ] as typeof students;
       });
     }, 18000);
 
@@ -55,7 +56,7 @@ export const RecentScans: React.FC = () => {
   const getStatusIcon = (status: ScanStatus) => {
     switch (status) {
       case 'boarded':
-        return <CheckCircle2 className="h-4.5 w-4.5 text-emerald-500" />;
+        return <Check className="h-4.5 w-4.5 text-emerald-500" />;
       case 'exited':
         return <XCircle className="h-4.5 w-4.5 text-slate-400" />;
       default:
@@ -66,42 +67,41 @@ export const RecentScans: React.FC = () => {
   const getStatusBg = (status: ScanStatus) => {
     switch (status) {
       case 'boarded':
-        return 'bg-emerald-50 text-emerald-700 ring-emerald-100';
+        return 'bg-[#00201c] text-white ring-white/20';
       case 'exited':
-        return 'bg-slate-50 text-slate-700 ring-slate-200';
+        return 'bg-[#eceef0] text-[#45464d] ring-white/40';
       default:
-        return 'bg-amber-50 text-amber-700 ring-amber-100';
+        return 'bg-[#57dffe] text-[#001f26] ring-white/40';
     }
   };
 
   return (
     <DashboardCard
       title="Recent Scans"
-      description="Live RFID terminal updates"
-      className="flex h-full flex-col"
+      className="flex h-full  flex-col"
       bodyClassName="flex flex-1 flex-col"
     >
-      <div className="border-b border-slate-100 px-6 pb-5 sm:px-7">
+      <div className="border-b border-[#e0e3e5]/80 px-6 pb-5 sm:px-7">
         <label className="sr-only" htmlFor="student-search">
           Search student
         </label>
-        <div className="flex h-11 items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-3 text-slate-500 transition-colors focus-within:border-sky-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-sky-100">
-          <Search className="h-4.5 w-4.5 flex-none" />
+        <div className="flex h-11 items-center justify-center gap-2 rounded-full border border-[#e0e3e5] bg-white/70 px-3 text-[#45464d] transition-colors focus-within:border-[#57dffe] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#57dffe]/20">
+          <Search className="h-4.5 w-4.5 flex-none text-[#006172]" />
           <input
             id="student-search"
             type="search"
             placeholder="Search student or bus..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+            className="w-full bg-transparent text-sm text-[#191c1e] outline-none placeholder:text-[#6a7078]"
           />
         </div>
       </div>
 
       <div className="flex-1 overflow-x-auto">
-        <table className="min-w-[760px] w-full border-separate border-spacing-0">
+        <table className="min-w-190 w-full border-separate border-spacing-0">
           <thead>
-            <tr className="bg-slate-50/80 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+            <tr className="bg-white/55 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6a7078]">
               <th className="px-6 py-4 sm:px-7">Student</th>
               <th className="px-6 py-4">Bus & Route</th>
               <th className="px-6 py-4">Time</th>
@@ -115,24 +115,24 @@ export const RecentScans: React.FC = () => {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="border-b border-slate-100/90 transition-colors hover:bg-slate-50/70"
+                className="border-b border-[#e0e3e5]/90 transition-colors hover:bg-white/65"
               >
                 <td className="px-6 py-4 sm:px-7">
                   <div className="flex items-center gap-3">
-                    <div className="grid h-8 w-8 flex-none place-items-center rounded-full bg-gradient-to-br from-sky-500 to-cyan-500 text-[11px] font-semibold text-white">
+                    <div className="grid h-8 w-8 flex-none place-items-center rounded-full bg-[#00687a] text-[11px] font-semibold text-white shadow-[0_10px_20px_rgba(0,104,122,0.18)]">
                       {student.avatar}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold tracking-[-0.01em] text-slate-900">{student.name}</p>
-                      <p className="text-xs leading-5 text-slate-500">RFID ID verified</p>
+                      <p className="text-sm font-semibold tracking-[-0.01em] text-[#191c1e]">{student.name}</p>
+                      <p className="text-xs leading-5 text-[#45464d]">RFID ID verified</p>
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <p className="text-sm font-medium text-slate-900">{student.bus}</p>
-                  <p className="mt-0.5 text-xs leading-5 text-slate-500">{student.route}</p>
+                  <p className="text-sm font-medium text-[#191c1e]">{student.bus}</p>
+                  <p className="mt-0.5 text-xs leading-5 text-[#45464d]">{student.route}</p>
                 </td>
-                <td className="px-6 py-4 text-sm font-medium text-slate-900">{student.timestamp}</td>
+                <td className="px-6 py-4 text-sm font-medium text-[#191c1e]">{student.timestamp}</td>
                 <td className="px-6 py-4">
                   <div className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold ring-1 ${getStatusBg(student.status as ScanStatus)}`}>
                     {getStatusIcon(student.status as ScanStatus)}
@@ -147,11 +147,8 @@ export const RecentScans: React.FC = () => {
         </table>
       </div>
 
-      <div className="flex items-center justify-between border-t border-slate-100 px-6 py-4 text-xs sm:px-7">
-        <p className="text-slate-500">Showing {filteredStudents.length} live records</p>
-        <a href="#" className="font-semibold text-sky-600 transition-colors hover:text-sky-700">
-          View All Records →
-        </a>
+      <div className="flex items-center justify-start border-t border-[#e0e3e5]/80 px-6 py-4 text-xs sm:px-7">
+        <p className="text-[#45464d]">Showing {filteredStudents.length} live records</p>
       </div>
     </DashboardCard>
   );

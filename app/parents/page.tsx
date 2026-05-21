@@ -36,8 +36,8 @@ export default function ParentsPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#f4f7fb] text-slate-900">
-      <div className="pointer-events-none absolute inset-0 bg-dot-grid opacity-60" />
+    <div className="app-shell relative min-h-screen overflow-hidden text-[#191c1e]">
+      <div className="surface-grid pointer-events-none absolute inset-0 opacity-45" />
 
       <ParentsSidebar navItems={parentNavItems} activeKey="dashboard" />
 

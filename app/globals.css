@@ -1,38 +1,122 @@
+@import "leaflet/dist/leaflet.css";
+
 @import "tailwindcss";
 
 :root {
-  --primary: #0F172A;
-  --secondary: #06B6D4;
-  --tertiary: #14B8A6;
-  --neutral: #F8FAFC;
+  --surface: #f7f9fb;
+  --surface-dim: #d8dadc;
+  --surface-bright: #f7f9fb;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f2f4f6;
+  --surface-container: #eceef0;
+  --surface-container-high: #e6e8ea;
+  --surface-container-highest: #e0e3e5;
+  --on-surface: #191c1e;
+  --on-surface-variant: #45464d;
+  --outline: #76777d;
+  --outline-variant: #c6c6cd;
+  --surface-tint: #565e74;
+  --primary: #000000;
+  --on-primary: #ffffff;
+  --primary-container: #131b2e;
+  --secondary: #00687a;
+  --on-secondary: #ffffff;
+  --secondary-container: #57dffe;
+  --on-secondary-container: #006172;
+  --tertiary: #000000;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #00201c;
+  --on-tertiary-container: #009485;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --background: #f7f9fb;
+  --on-background: #191c1e;
+  --surface-variant: #e0e3e5;
 
-  /* spacing tokens */
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-
-  /* font variables (injected via next/font) */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-/* subtle background dot grid */
-.bg-dot-grid {
-  background-image:
-    radial-gradient(rgba(148, 163, 184, 0.18) 0.6px, transparent 0.6px),
-    linear-gradient(180deg, rgba(248, 250, 252, 0.42), rgba(248, 250, 252, 0.78));
-  background-size: 20px 20px, 100% 100%;
-}
-
-/* small utility for muted lead text */
-.lead {
-  font-size: 1rem;
-  color: #475569;
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-sans), "SF Pro Text", "Segoe UI", sans-serif;
-  background-color: #f4f7fb;
-  color: #0f172a;
+  font-family: var(--font-sans), "Inter", "SF Pro Text", "Segoe UI", sans-serif;
+  color: var(--on-surface);
+  background:
+    radial-gradient(circle at top left, rgba(86, 94, 116, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(0, 104, 122, 0.1), transparent 26%),
+    linear-gradient(180deg, #fdfefe 0%, #f7f9fb 42%, #eef2f5 100%);
+}
+
+::selection {
+  background: rgba(0, 104, 122, 0.18);
+  color: #09111f;
+}
+
+@layer utilities {
+  .app-shell {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top left, rgba(86, 94, 116, 0.12), transparent 28%),
+      radial-gradient(circle at top right, rgba(0, 104, 122, 0.1), transparent 26%),
+      linear-gradient(180deg, #fdfefe 0%, #f7f9fb 42%, #eef2f5 100%);
+  }
+
+  .surface-grid {
+    background-image:
+      radial-gradient(rgba(70, 77, 85, 0.12) 0.75px, transparent 0.75px),
+      linear-gradient(180deg, rgba(247, 249, 251, 0.78), rgba(237, 241, 245, 0.92));
+    background-size: 22px 22px, 100% 100%;
+  }
+
+  .glass-panel {
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(24px) saturate(140%);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  }
+
+  .glass-panel-strong {
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(34px) saturate(150%);
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.1);
+  }
+
+  .glass-sidebar {
+    border-right: 1px solid rgba(198, 198, 205, 0.45);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(36px) saturate(150%);
+    box-shadow: 18px 0 40px rgba(15, 23, 42, 0.06);
+  }
+
+  .section-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6a7078;
+  }
+
+  .page-frame {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .page-frame {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-frame {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
 }
