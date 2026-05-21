@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { Phone, MapPin } from 'lucide-react';
+import { Phone, MapPin} from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Bus } from '@/types';
 import { DashboardCard } from '@/components/admin/dashboard-card';
+import Link from 'next/link';
 
 type Props = {
   bus: Bus;
@@ -48,10 +49,10 @@ export const DriverCard: React.FC<Props> = ({ bus }) => {
         </div>
 
         <div className="mt-4">
-          <button className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-full bg-[#57dffe] px-3 text-sm font-semibold text-[#001f26] hover:bg-[#7fe6ff] focus:outline-none focus:ring-4 focus:ring-[#57dffe]/35">
+          <Link href={`tel:+91${bus.phone}`} className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-full bg-[#57dffe] px-3 text-sm font-semibold text-[#001f26] hover:bg-[#7fe6ff] focus:outline-none focus:ring-4 focus:ring-[#57dffe]/35 cursor-pointer transition">
             <Phone className="h-3.5 w-3.5" />
             Contact
-          </button>
+          </Link>
         </div>
       </DashboardCard>
     </motion.div>

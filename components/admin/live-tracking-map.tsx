@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DivIcon } from 'leaflet';
 import { MapContainer, Marker, Polyline, TileLayer, Tooltip, ZoomControl } from 'react-leaflet';
-import { Bus } from 'lucide-react';
 import { buses } from '@/lib/data';
 
 const CAMPUS_CENTER: [number, number] = [28.5449, 77.1925];
@@ -18,6 +17,8 @@ const ROUTE_WAYPOINTS: [number, number][] = [
   [28.5428, 77.1914],
   [28.5443, 77.1898],
   [28.5458, 77.1906],
+  [28.540412, 77.202870],
+  [28.545687, 77.168562],
 ];
 
 const FALLBACK_ROUTE: [number, number][] = [

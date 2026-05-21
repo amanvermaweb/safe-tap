@@ -30,20 +30,14 @@ export default function DriversPage() {
         <Topbar
           onMenuClick={() => setSidebarOpen((value) => !value)}
           title="Drivers"
-          description="Expanded driver focus view with trip status, vehicle assignment, and quick contact controls."
-          action={
-            <span className="hidden items-center gap-2 rounded-full bg-[#57dffe] px-3 py-1.5 text-xs font-semibold text-[#001f26] ring-1 ring-white/60 sm:inline-flex">
-              <span className="h-2 w-2 rounded-full bg-[#00687a]" aria-hidden="true" />
-              On Trip
-            </span>
-          }
+          
+          
         />
 
         <main className="relative px-4 pb-8 pt-5 sm:px-6 lg:px-8">
           <div className="mx-auto flex w-full max-w-400 flex-col gap-6">
             <section className="grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_360px]">
-             
-
+            
               <div className="mt-6">
                 <h3 className="mb-4 text-sm font-semibold text-[#191c1e]">Fleet</h3>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

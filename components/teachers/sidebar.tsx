@@ -28,7 +28,6 @@ export function Sidebar() {
       transition={{ duration: 0.3 }}
       className="glass-sidebar fixed left-0 top-0 hidden h-screen w-64 flex-col md:flex"
     >
-      {/* Profile Section */}
       <div className="border-b border-[#e0e3e5] px-5 py-6">
         <div className="flex items-center gap-3 mb-3">
           <div className="flex h-11 w-11 items-center justify-center shrink-0 rounded-full bg-[#00687a] text-sm font-semibold text-white shadow-[0_16px_24px_rgba(0,104,122,0.18)]">
@@ -42,14 +41,6 @@ export function Sidebar() {
               {teacherProfile.grade}
             </p>
           </div>
-        </div>
-        <div className="rounded-3xl border border-[#e0e3e5] bg-white/70 px-3 py-2.5 backdrop-blur-xl">
-          <p className="text-xs font-semibold text-[#191c1e]">
-            {teacherProfile.classroom}
-          </p>
-          <p className="text-xs text-[#45464d]">
-            {teacherProfile.school}
-          </p>
         </div>
       </div>
 
@@ -97,12 +88,6 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Footer */}
-      <div className="border-t border-[#e0e3e5] px-5 py-4">
-        <p className="text-xs text-[#45464d] text-center">
-          © 2026 SafeTap • v1.0
-        </p>
-      </div>
     </motion.aside>
   );
 }

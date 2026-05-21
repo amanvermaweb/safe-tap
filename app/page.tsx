@@ -8,9 +8,7 @@ export default function Home() {
       <main className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <section className="space-y-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/75 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#006172] backdrop-blur-2xl">
-              Luminous Mobility
-            </div>
+            
 
             <div className="max-w-3xl space-y-5">
               <h1 className="text-4xl font-semibold tracking-[-0.04em] text-[#191c1e] sm:text-5xl lg:text-6xl">

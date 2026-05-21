@@ -8,14 +8,16 @@ export const buses: Bus[] = [
     status: 'active',
     position: { x: 45, y: 35 },
     driver: 'Marcus Johnson',
+    phone: '9876543210',
   },
   {
-    id: '2',
+    id: '2',  
     number: '04',
     route: 'Oakridge',
     status: 'delayed',
     position: { x: 65, y: 60 },
     driver: 'Sarah Williams',
+    phone: '9876543210',
   },
   {
     id: '3',
@@ -24,6 +26,7 @@ export const buses: Bus[] = [
     status: 'active',
     position: { x: 55, y: 45 },
     driver: 'James Chen',
+    phone: '1234567890',
   },
 ];
 

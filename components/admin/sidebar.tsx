@@ -9,7 +9,6 @@ import {
   LayoutDashboard,
   MapPin,
   Users,
-  BarChart3,
   UserRound,
 } from 'lucide-react';
 import { teacherProfile } from '@/lib/teacher-data';
@@ -18,7 +17,6 @@ const navItems = [
   { icon: LayoutDashboard, label: 'Dashboard', href: '/admin' },
   { icon: MapPin, label: 'Live Tracking', href: '/admin/tracking' },
   { icon: Users, label: 'Students', href: '/admin/students' },
-  { icon: BarChart3, label: 'Attendance', href: '/admin/attendance' },
   { icon: UserRound, label: 'Drivers', href: '/admin/drivers' },
 ];
 
