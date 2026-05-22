@@ -9,6 +9,7 @@ import {
   MapPin,
   Bell,
   ChevronRight,
+  LogOut,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -88,6 +89,21 @@ export function Sidebar() {
         })}
       </nav>
 
+      {/* Logout Button */}
+      <div className="border-t border-[#e0e3e5] px-3 py-4">
+        <button
+          onClick={async () => {
+            await fetch("/api/auth/logout", { method: "POST" });
+            window.location.href = "/sign-in";
+          }}
+          className="w-full relative group flex items-center gap-3 rounded-[1.25rem] px-3.5 py-2.5 text-label text-[#45464d] hover:bg-red-50 hover:text-red-600 transition-all duration-200"
+        >
+          <div className="relative z-10 shrink-0">
+            <LogOut size={20} />
+          </div>
+          <span className="relative z-10 flex-1 text-left">Logout</span>
+        </button>
+      </div>
     </motion.aside>
   );
 }

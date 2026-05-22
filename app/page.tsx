@@ -1,15 +1,37 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowRight, BusFront, ShieldCheck, Users, MapPinned } from "lucide-react";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowRight, BusFront, ShieldCheck, Users } from "lucide-react";
+
+const RoutesMap = dynamic(
+  () => import("@/components/admin/routes-map").then((mod) => mod.RoutesMap),
+  { ssr: false }
+);
 
 export default function Home() {
+  const router = useRouter();
+  const [isSigningOut, setIsSigningOut] = useState(false);
+
+  async function handleSignOut() {
+    setIsSigningOut(true);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      router.push("/sign-in");
+      router.refresh();
+    } finally {
+      setIsSigningOut(false);
+    }
+  }
+
   return (
     <div className="app-shell relative overflow-hidden">
       <div className="surface-grid pointer-events-none absolute inset-0 opacity-50" />
       <main className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <section className="space-y-8">
-            
-
             <div className="max-w-3xl space-y-5">
               <h1 className="text-4xl font-semibold tracking-[-0.04em] text-[#191c1e] sm:text-5xl lg:text-6xl">
                 A premium safety command center for school mobility.
@@ -21,7 +43,7 @@ export default function Home() {
 
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/signin"
+                href="/sign-in"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#00687a] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_20px_38px_rgba(0,104,122,0.24)] transition hover:-translate-y-0.5 hover:bg-[#005867]"
               >
                 Sign in
@@ -29,14 +51,23 @@ export default function Home() {
               </Link>
 
               <Link
-                href="/signup"
+                href="/sign-up"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/70 bg-white/75 px-6 py-3.5 text-sm font-semibold text-[#191c1e] backdrop-blur-2xl transition hover:bg-white"
               >
                 Sign up
               </Link>
+
+              <button
+                type="button"
+                onClick={handleSignOut}
+                disabled={isSigningOut}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#d3d8dc] bg-white/75 px-6 py-3.5 text-sm font-semibold text-[#45464d] backdrop-blur-2xl transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSigningOut ? "Signing out..." : "Sign out"}
+              </button>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-3 object-center justify-center">
               {[
                 { icon: BusFront, title: "Live fleet", copy: "Real-time bus visibility with soft alerts." },
                 { icon: Users, title: "Class sync", copy: "Attendance and parent notifications in one place." },
@@ -56,8 +87,10 @@ export default function Home() {
               })}
             </div>
           </section>
-
-          <section className="glass-panel-strong rounded-[2.5rem] p-5 sm:p-6 lg:p-8">
+          <section className="glass-panel-strong rounded-[2.5rem] p-5 sm:p-6 lg:p-8 w-full">
+            <RoutesMap />
+          </section>
+          {/* <section className="glass-panel-strong rounded-[2.5rem] p-5 sm:p-6 lg:p-8">
             <div className="flex items-center justify-between gap-3 border-b border-[#e0e3e5] pb-5">
               <div>
                 <p className="section-heading">Control suite</p>
@@ -88,7 +121,7 @@ export default function Home() {
               </div>
               <div className="surface-grid mt-4 aspect-16/10 rounded-4xl border border-[#e0e3e5] bg-[radial-gradient(circle_at_top,rgba(87,223,254,0.2),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.95),rgba(236,238,240,0.95))]" />
             </div>
-          </section>
+          </section> */}
         </div>
       </main>
     </div>

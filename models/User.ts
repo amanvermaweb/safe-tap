@@ -2,7 +2,6 @@ import mongoose, { Schema, Document } from 'mongoose';
 import { UserRole, ObjectId } from '../types';
 
 export interface IUser extends Document {
-  clerkId: string;
   role: UserRole;
   fullName: string;
   email: string;
@@ -17,7 +16,6 @@ export interface IUser extends Document {
 
 const UserSchema = new Schema<IUser>(
   {
-    clerkId: { type: String, required: true, index: true, unique: true },
     role: { type: String, enum: Object.values(UserRole), required: true },
     fullName: { type: String, required: true },
     email: { type: String, required: true, lowercase: true, index: true },

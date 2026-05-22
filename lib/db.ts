@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const mongoUri = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
+if (!mongoUri) {
   throw new Error('Please define the MONGODB_URI environment variable');
 }
 
@@ -25,7 +25,7 @@ async function connect() {
 
   if (!global.__mongoose_cached__!.promise) {
     global.__mongoose_cached__!.promise = mongoose
-      .connect(MONGODB_URI, {
+      .connect(mongoUri!, {
         // useUnifiedTopology and useNewUrlParser are default in Mongoose 6+
       })
       .then((m) => m);

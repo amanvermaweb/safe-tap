@@ -78,7 +78,7 @@ export async function handleRfidScan(payload: RFIDScanPayload) {
       await student.save({ session });
 
       // Add to bus currentStudents if not present
-      if (!bus.currentStudents.find((id) => id.equals(student._id))) {
+      if (!bus.currentStudents.find((id) => id.toString() === student._id.toString())) {
         bus.currentStudents.push(student._id as any);
       }
     } else {
@@ -93,7 +93,7 @@ export async function handleRfidScan(payload: RFIDScanPayload) {
       await student.save({ session });
 
       // Remove from bus currentStudents
-      bus.currentStudents = bus.currentStudents.filter((id) => !id.equals(student._id));
+      bus.currentStudents = bus.currentStudents.filter((id) => id.toString() !== student._id.toString());
     }
 
     await bus.save({ session });

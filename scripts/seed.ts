@@ -1,3 +1,5 @@
+import { NotificationType, ScanType, TripType, UserRole } from '../types';
+
 // Allow a default local MongoDB URI for convenience when MONGODB_URI is not set.
 if (!process.env.MONGODB_URI) {
   // Development default. Change as appropriate for your environment.
@@ -42,12 +44,12 @@ async function seed() {
   const bus = await BusModel.create({ busNumber: 'BUS-101', vehicleNumber: 'KA-01-AB-1234', capacity: 40, routeId: route._id, currentStudents: [] });
 
   console.log('Creating users (admin, driver, teacher, parents)');
-  const admin = await UserModel.create({ clerkId: 'clerk_admin_1', role: 'admin', fullName: 'Admin User', email: 'admin@school.org' });
-  const driver = await UserModel.create({ clerkId: 'clerk_driver_1', role: 'driver', fullName: 'Ravi Driver', email: 'ravi.driver@school.org', assignedBus: bus._id });
-  const teacher = await UserModel.create({ clerkId: 'clerk_teacher_1', role: 'teacher', fullName: 'Priya Teacher', email: 'priya.teacher@school.org' });
+  const admin = await UserModel.create({ role: UserRole.ADMIN, fullName: 'Admin User', email: 'admin@school.org' });
+  const driver = await UserModel.create({ role: UserRole.DRIVER, fullName: 'Ravi Driver', email: 'ravi.driver@school.org', assignedBus: bus._id });
+  const teacher = await UserModel.create({ role: UserRole.TEACHER, fullName: 'Priya Teacher', email: 'priya.teacher@school.org' });
 
-  const parentA = await UserModel.create({ clerkId: 'clerk_parent_1', role: 'parent', fullName: 'Parent One', email: 'parent.one@example.com' });
-  const parentB = await UserModel.create({ clerkId: 'clerk_parent_2', role: 'parent', fullName: 'Parent Two', email: 'parent.two@example.com' });
+  const parentA = await UserModel.create({ role: UserRole.PARENT, fullName: 'Parent One', email: 'parent.one@example.com' });
+  const parentB = await UserModel.create({ role: UserRole.PARENT, fullName: 'Parent Two', email: 'parent.two@example.com' });
 
   console.log('Creating students');
   const student1 = await StudentModel.create({
@@ -82,10 +84,10 @@ async function seed() {
   const today = new Date().toISOString().slice(0, 10);
   await AttendanceSessionModel.create({ studentId: student1._id, date: today, morning: { boarded: true, exited: false }, afternoon: { boarded: false, exited: false } });
 
-  await ScanEventModel.create({ studentId: student1._id, busId: bus._id, rfidTagId: student1.rfidTagId, type: 'board_bus', trip: 'morning', scannedAt: new Date(), scannerId: 'scanner-1', location: { type: 'Point', coordinates: [77.5946, 12.9716] } });
+  await ScanEventModel.create({ studentId: student1._id, busId: bus._id, rfidTagId: student1.rfidTagId, type: ScanType.BOARD, trip: TripType.MORNING, scannedAt: new Date(), scannerId: 'scanner-1', location: { type: 'Point', coordinates: [77.5946, 12.9716] } });
 
   console.log('Creating initial notifications');
-  await NotificationModel.create({ userId: parentA._id, studentId: student1._id, type: 'boarded_bus', title: 'Amit boarded the bus', message: 'Amit Kumar has boarded BUS-101' });
+  await NotificationModel.create({ userId: parentA._id, studentId: student1._id, type: NotificationType.BOARDED, title: 'Amit boarded the bus', message: 'Amit Kumar has boarded BUS-101' });
 
   console.log('Seed complete');
   process.exit(0);

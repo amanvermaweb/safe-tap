@@ -10,6 +10,7 @@ import {
   MapPin,
   Users,
   UserRound,
+  LogOut,
 } from 'lucide-react';
 import { teacherProfile } from '@/lib/teacher-data';
 
@@ -83,16 +84,29 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onOpenChange }) => {
         </nav>
 
         <div className="border-t border-[#e0e3e5] p-4">
-          <div className={`flex items-center gap-3 rounded-3xl bg-white/70 px-3 py-3 ${isCollapsed ? 'lg:justify-center' : ''}`}>
-            <div className="grid h-10 w-10 flex-none place-items-center rounded-full bg-[#00201c] text-sm font-semibold text-white">
-              {teacherProfile.avatar}
-            </div>
-            {!isCollapsed && (
-              <div className="min-w-0">
-                <p className="truncate text-sm font-semibold leading-5 text-[#191c1e]">{teacherProfile.name}</p>
-                <p className="truncate text-xs leading-5 text-[#45464d]">Administrator</p>
+          <div className={`space-y-2`}>
+            <div className={`flex items-center gap-3 rounded-3xl bg-white/70 px-3 py-3 ${isCollapsed ? 'lg:justify-center' : ''}`}>
+              <div className="grid h-10 w-10 flex-none place-items-center rounded-full bg-[#00201c] text-sm font-semibold text-white">
+                {teacherProfile.avatar}
               </div>
-            )}
+              {!isCollapsed && (
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold leading-5 text-[#191c1e]">{teacherProfile.name}</p>
+                  <p className="truncate text-xs leading-5 text-[#45464d]">Administrator</p>
+                </div>
+              )}
+            </div>
+            <button
+              onClick={async () => {
+                await fetch("/api/auth/logout", { method: "POST" });
+                window.location.href = "/sign-in";
+              }}
+              title={isCollapsed ? "Logout" : undefined}
+              className={`group flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-medium leading-none text-[#45464d] transition-all duration-200 ease-out hover:bg-red-50 hover:text-red-600 ${isCollapsed ? 'lg:justify-center' : ''}`}
+            >
+              <LogOut className="h-5 w-5 flex-none" />
+              {!isCollapsed && <span className="truncate">Logout</span>}
+            </button>
           </div>
         </div>
       </div>

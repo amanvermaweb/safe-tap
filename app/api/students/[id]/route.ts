@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server';
-import connect from '../../../../../lib/db';
-import StudentModel from '../../../../../models/Student';
+import { NextRequest, NextResponse } from 'next/server';
+import connect from '../../../../lib/db';
+import StudentModel from '../../../../models/Student';
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   await connect();
 
   const student = await StudentModel.findById(id).populate('parentIds', 'fullName email phone profileImage').lean();
