@@ -22,7 +22,6 @@ export function StatusBanner({ child }: StatusBannerProps) {
           </Avatar>
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#6a7078]">Today</p>
             <h1 className="mt-1 text-lg font-semibold leading-6 text-[#191c1e] sm:text-2xl">{child.name}</h1>
             <p className="mt-1 text-sm text-[#45464d]">{child.statusDetail}</p>
           </div>

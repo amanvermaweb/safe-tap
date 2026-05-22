@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { navigationItems, teacherProfile } from "@/lib/teacher-data";
 import { getInitials } from "@/lib/utils";
 import {
@@ -28,6 +29,10 @@ interface SidebarProps {
 
 export function Sidebar({ userName }: SidebarProps) {
   const userInitials = getInitials(userName);
+  const pathname = usePathname();
+
+  const isActivePath = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <motion.aside
@@ -56,7 +61,7 @@ export function Sidebar({ userName }: SidebarProps) {
       <nav className="flex-1 overflow-y-auto px-3 py-6 space-y-1">
         {navigationItems.map((item, index) => {
           const Icon = iconMap[item.icon] || LayoutDashboard;
-          const isActive = item.isActive;
+          const isActive = isActivePath(item.href);
 
           return (
             <motion.div

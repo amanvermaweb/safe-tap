@@ -15,30 +15,19 @@ export const navigationItems: NavigationItem[] = [
     label: "Dashboard",
     icon: "LayoutDashboard",
     href: "/teachers",
-    isActive: true,
   },
   {
     id: "attendance",
     label: "Attendance",
     icon: "CheckCircle2",
     href: "/teachers/attendance",
-    isActive: false,
   },
   {
     id: "students",
     label: "Students",
     icon: "Users",
     href: "/teachers/students",
-    isActive: false,
   },
-  {
-    id: "tracking",
-    label: "Live Tracking",
-    icon: "MapPin",
-    href: "/teachers/tracking",
-    isActive: false,
-  },
-  
 ];
 
 export const attendanceStats: AttendanceStats = {

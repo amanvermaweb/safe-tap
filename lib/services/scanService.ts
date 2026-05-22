@@ -79,12 +79,12 @@ export async function handleRfidScan(payload: RFIDScanPayload) {
 
       // Add to bus currentStudents if not present
       if (!bus.currentStudents.find((id) => id.toString() === student._id.toString())) {
-        bus.currentStudents.push(student._id as any);
+        bus.currentStudents.push(student._id);
       }
     } else {
       // EXIT
       student.isOnBus = false;
-      student.currentBus = undefined as any;
+      student.currentBus = undefined;
       student.lastScanAt = scannedAt;
       if (trip === TripType.MORNING) student.hasExitedMorning = true;
       else student.hasExitedAfternoon = true;

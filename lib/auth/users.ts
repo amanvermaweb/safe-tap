@@ -1,4 +1,4 @@
-// Mock users database - In production, this would be a real database
+
 export const users = [
   {
     id: "1",
@@ -19,7 +19,7 @@ export const users = [
     email: "parent@safetap.com",
     password: "parent123",
     role: "parent",
-    name: "Parent User"
+    name: "Parent User",
   }
 ];
 

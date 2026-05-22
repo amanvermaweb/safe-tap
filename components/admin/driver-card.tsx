@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Phone, MapPin} from 'lucide-react';
+import { Phone, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Bus } from '@/types';
 import { DashboardCard } from '@/components/admin/dashboard-card';

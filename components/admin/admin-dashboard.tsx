@@ -6,9 +6,11 @@ import { Sidebar } from "@/components/admin/sidebar";
 import { Topbar } from "@/components/admin/topbar";
 import { StatCard } from "@/components/admin/stat-card";
 import { RecentScans } from "@/components/admin/recent-scans";
-import { ActiveDriver } from "@/components/admin/active-driver";
+import { DriverCard } from "@/components/admin/driver-card";
 import { PanelSkeleton, StatCardSkeleton, TableSkeleton } from "@/components/admin/loading-states";
-import { Bus, Users, Radio, AlertTriangle, TrendingUp } from "lucide-react";
+import { Bus, Users, Radio, AlertTriangle, TrendingUp, ChevronRight } from "lucide-react";
+import { buses } from "@/lib/data";
+import { motion } from "framer-motion";
 
 const LiveTrackingMap = dynamic(
   () => import("@/components/admin/live-tracking-map").then((mod) => mod.LiveTrackingMap),
@@ -22,6 +24,7 @@ interface AdminDashboardProps {
 export function AdminDashboard({ userName }: AdminDashboardProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [currentDriverIndex, setCurrentDriverIndex] = useState(0);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -39,6 +42,10 @@ export function AdminDashboard({ userName }: AdminDashboardProps) {
     const id = window.setTimeout(() => setLoading(false), 550);
     return () => window.clearTimeout(id);
   }, []);
+
+  const handleNextDriver = () => {
+    setCurrentDriverIndex((prev) => (prev + 1) % buses.length);
+  };
 
   return (
     <div className="app-shell relative min-h-screen overflow-hidden text-[#191c1e]">
@@ -85,8 +92,45 @@ export function AdminDashboard({ userName }: AdminDashboardProps) {
                   <div>
                     <LiveTrackingMap />
                   </div>
-                  <div className="grid auto-rows-max gap-6">
-                    <ActiveDriver />
+                  <div className="grid auto-rows-max gap-6 relative">
+                    <div className="relative">
+                      <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#191c1e]">Active Drivers</h2>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-[#45464d]">{currentDriverIndex + 1} / {buses.length}</span>
+                          <a
+                            href="/admin/drivers"
+                            className="inline-flex h-8 items-center rounded-full border border-[#e0e3e5] bg-white/75 px-3 text-xs font-semibold text-[#006172] transition-colors hover:bg-white hover:text-[#005867]"
+                            aria-label="View all drivers"
+                          >
+                            All Drivers
+                          </a>
+                        </div>
+                      </div>
+                      <div className="relative h-full min-h-[500px]">
+                        <motion.div
+                          key={currentDriverIndex}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -20 }}
+                          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                          className="absolute inset-0"
+                        >
+                          <DriverCard bus={buses[currentDriverIndex]} />
+                        </motion.div>
+                      </div>
+                      
+                      {/* NEXT Button */}
+                      <motion.button
+                        onClick={handleNextDriver}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 flex items-center justify-center h-10 w-10 rounded-full bg-[#006172] text-white hover:bg-[#005867] transition-colors shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-[#006172]/35 z-20"
+                        aria-label="Next driver"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <ChevronRight className="h-5 w-5" />
+                      </motion.button>
+                    </div>
                   </div>
                 </section>
 

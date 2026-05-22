@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { navigationItems, teacherProfile } from "@/lib/teacher-data";
 import { getInitials } from "@/lib/utils";
 import Link from "next/link";
@@ -15,6 +16,10 @@ interface MobileNavProps {
 
 export function MobileNav({ isOpen, onClose, userName }: MobileNavProps) {
   const userInitials = getInitials(userName);
+  const pathname = usePathname();
+
+  const isActivePath = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <>
@@ -68,7 +73,7 @@ export function MobileNav({ isOpen, onClose, userName }: MobileNavProps) {
         {/* Navigation */}
         <nav className="flex-1 space-y-1 px-3 py-6">
           {navigationItems.map((item) => {
-            const isActive = item.isActive;
+            const isActive = isActivePath(item.href);
             return (
               <Link key={item.id} href={item.href} onClick={onClose}>
                 <div

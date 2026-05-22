@@ -9,9 +9,14 @@ import MobileNav from "./mobile-nav";
 interface TopbarProps {
   onSearch?: (query: string) => void;
   userName: string;
+  searchPlaceholder?: string;
 }
 
-export function Topbar({ onSearch, userName }: TopbarProps) {
+export function Topbar({
+  onSearch,
+  userName,
+  searchPlaceholder = "Search students...",
+}: TopbarProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -56,7 +61,7 @@ export function Topbar({ onSearch, userName }: TopbarProps) {
             />
             <input
               type="text"
-              placeholder="Search students..."
+              placeholder={searchPlaceholder}
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               className="w-full rounded-full border border-[#e0e3e5] bg-white/70 py-2.5 pl-11 pr-4 text-sm text-[#191c1e] placeholder:text-[#6a7078] transition-all focus:border-[#57dffe] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#57dffe]/20"

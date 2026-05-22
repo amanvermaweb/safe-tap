@@ -2,9 +2,7 @@ import type { ParentDashboardData, ParentNavItem } from "@/types/parent";
 
 export const parentNavItems: ParentNavItem[] = [
   { key: "dashboard", label: "Dashboard", href: "/parents" },
-  { key: "live-track", label: "Live Track", href: "/parents" },
-  { key: "notifications", label: "Notifications", href: "/parents" },
-  { key: "settings", label: "Settings", href: "/parents" },
+  { key: "live-track", label: "Live Track", href: "/parents/live-track" },
 ];
 
 export const parentDashboardData: ParentDashboardData = {
@@ -20,11 +18,12 @@ export const parentDashboardData: ParentDashboardData = {
   },
   driver: {
     id: "driver-04",
-    name: "Daniel Brooks",
-    avatarUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=320&q=80",
+    name: "Amit Shah",
+    avatarUrl: "https://www.shutterstock.com/image-photo/closeup-indian-bus-driver-happy-260nw-2605532817.jpg",
     rating: 4.9,
     busLabel: "Route B12",
     phoneLabel: "Call Driver",
+    phone: "9876543210",
   },
   activity: [
     {
@@ -50,12 +49,12 @@ export const parentDashboardData: ParentDashboardData = {
     },
   ],
   stops: [
-    { id: "stop-1", label: "Willow Street", x: 14, y: 66 },
-    { id: "stop-2", label: "Maple Avenue", x: 32, y: 50 },
-    { id: "stop-3", label: "Oak Junction", x: 56, y: 44 },
-    { id: "stop-4", label: "Riverbank Road", x: 75, y: 36 },
-    { id: "stop-5", label: "North Ridge School", x: 88, y: 24 },
+    { id: "stop-1", label: "Dronagiri Hostel", coordinates: [28.54580, 77.19096] },
+    { id: "stop-2", label: "IITD Hospital", coordinates: [28.545638273204542, 77.188138961792] },
+    { id: "stop-3", label: "Cricket Ground IITD", coordinates: [28.544954987200132, 77.18935668468477] },
+    { id: "stop-4", label: "Seminar Hall", coordinates: [28.544351806905766, 77.19272017478943] },
+    { id: "stop-5", label: "LHC", coordinates: [28.543390481172302, 77.1930742263794] },
   ],
-  routeLabel: "Bus B12 - North Ridge School",
+  routeLabel: "Bus B12 - IIT Delhi ",
   lastUpdated: "Last refreshed 1 min ago",
 };

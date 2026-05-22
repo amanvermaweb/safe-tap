@@ -24,6 +24,7 @@ export interface DriverProfile {
   rating: number;
   busLabel: string;
   phoneLabel: string;
+  phone: string;
 }
 
 export type ActivityType = "boarded" | "waiting" | "scan";
@@ -39,8 +40,7 @@ export interface ActivityItem {
 export interface MapStop {
   id: string;
   label: string;
-  x: number;
-  y: number;
+  coordinates: [number, number];
 }
 
 export interface ParentDashboardData {

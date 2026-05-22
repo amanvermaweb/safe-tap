@@ -27,22 +27,13 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/sign-in"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#00687a] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_20px_38px_rgba(0,104,122,0.24)] transition hover:-translate-y-0.5 hover:bg-[#005867]"
-              >
-                Sign in
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-
-              <Link
-                href="/sign-up"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/70 bg-white/75 px-6 py-3.5 text-sm font-semibold text-[#191c1e] backdrop-blur-2xl transition hover:bg-white"
-              >
-                Sign up
-              </Link>
-            </div>
+            <Link
+              href="/sign-in"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#00687a] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_20px_38px_rgba(0,104,122,0.24)] transition hover:-translate-y-0.5 hover:bg-[#005867]"
+            >
+              Sign in
+              <ArrowRight className="h-4 w-4" />
+            </Link>
 
             <div className="grid gap-4 sm:grid-cols-3 object-center justify-center">
               {[

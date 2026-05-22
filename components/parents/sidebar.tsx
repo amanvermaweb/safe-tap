@@ -86,7 +86,7 @@ function SidebarBody({
   const userInitials = getInitials(userName);
 
   return (
-    <>
+    <div className="flex h-full flex-col">
       <div>
         <p className="text-xs font-semibold text-center uppercase tracking-[0.11em] text-slate-400">SafeTap</p>
         <div className="mt-2 flex items-center gap-2">
@@ -137,7 +137,7 @@ function SidebarBody({
           Logout
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -166,7 +166,7 @@ export function ParentsSidebar({ navItems, activeKey, userName }: ParentsSidebar
             </SheetHeader>
             <SidebarNav navItems={navItems} activeKey={activeKey} onSelect={() => setOpen(false)} />
             <div className="mt-auto space-y-3">
-              <div className="rounded-3xl border border-[#e0e3e5] bg-white/70 p-3.5 backdrop-blur-xl">
+              <div className="rounded-3xl border border-[#e0e3e5] bg-white/70 p-3.5 backdrop-blur-xl self-end">
                 <div className="flex items-center gap-3">
                   <Avatar className="h-11 w-11">
                     <AvatarFallback>{userInitials}</AvatarFallback>
@@ -203,11 +203,7 @@ export function ParentsSidebar({ navItems, activeKey, userName }: ParentsSidebar
       </header>
 
       <aside className="glass-sidebar fixed inset-y-0 left-0 z-20 hidden w-68 px-5 py-6 lg:flex lg:flex-col">
-        <div className="flex h-full flex-col">
-          <div className="mb-6">
-            <SidebarBody navItems={navItems} activeKey={activeKey} userName={userName} />
-          </div>
-        </div>
+        <SidebarBody navItems={navItems} activeKey={activeKey} userName={userName} />
       </aside>
     </>
   );
