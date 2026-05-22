@@ -10,7 +10,11 @@ import { StudentRoster } from "@/components/teachers/student-roster";
 import { attendanceStats, students } from "@/lib/teacher-data";
 import { type StudentStatus } from "@/types/teacher";
 
-export function TeachersDashboard() {
+interface TeachersDashboardProps {
+  userName: string;
+}
+
+export function TeachersDashboard({ userName }: TeachersDashboardProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilters, setStatusFilters] = useState<StudentStatus[]>([]);
 
@@ -34,9 +38,9 @@ export function TeachersDashboard() {
   return (
     <div className="app-shell relative min-h-screen overflow-hidden text-[#191c1e]">
       <div className="surface-grid pointer-events-none absolute inset-0 opacity-40" />
-      <Sidebar />
+      <Sidebar userName={userName} />
 
-      <Topbar onSearch={handleSearch} />
+      <Topbar onSearch={handleSearch} userName={userName} />
 
       <main className="relative px-4 pb-12 pt-24 md:ml-64 md:pt-20 md:px-8">
         <div className="mx-auto max-w-7xl space-y-8">

@@ -3,17 +3,19 @@
 import { useState } from "react";
 import { Search, RotateCw, Menu } from "lucide-react";
 import { motion } from "framer-motion";
-import { teacherProfile } from "@/lib/teacher-data";
+import { getInitials } from "@/lib/utils";
 import MobileNav from "./mobile-nav";
 
 interface TopbarProps {
   onSearch?: (query: string) => void;
+  userName: string;
 }
 
-export function Topbar({ onSearch }: TopbarProps) {
+export function Topbar({ onSearch, userName }: TopbarProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const userInitials = getInitials(userName);
 
   const handleSearch = (value: string) => {
     setSearchQuery(value);
@@ -27,7 +29,7 @@ export function Topbar({ onSearch }: TopbarProps) {
 
   return (
     <>
-      <MobileNav isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+      <MobileNav isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} userName={userName} />
       <motion.header
         initial={{ y: -80 }}
         animate={{ y: 0 }}
@@ -87,9 +89,9 @@ export function Topbar({ onSearch }: TopbarProps) {
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#00687a] text-sm font-semibold text-white shadow-[0_14px_24px_rgba(0,104,122,0.18)] transition-shadow hover:shadow-[0_18px_28px_rgba(0,104,122,0.22)]"
-              title={teacherProfile.name}
+              title={userName}
             >
-              {teacherProfile.avatar}
+              {userInitials}
             </motion.div>
           </div>
         </div>

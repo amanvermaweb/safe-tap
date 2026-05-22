@@ -15,7 +15,11 @@ const LiveTrackingMap = dynamic(
   { ssr: false }
 );
 
-export function AdminDashboard() {
+interface AdminDashboardProps {
+  userName: string;
+}
+
+export function AdminDashboard({ userName }: AdminDashboardProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [loading, setLoading] = useState(true);
 
@@ -39,7 +43,7 @@ export function AdminDashboard() {
   return (
     <div className="app-shell relative min-h-screen overflow-hidden text-[#191c1e]">
       <div className="surface-grid pointer-events-none absolute inset-0 opacity-40" />
-      <Sidebar open={sidebarOpen} onOpenChange={setSidebarOpen} />
+      <Sidebar open={sidebarOpen} onOpenChange={setSidebarOpen} userName={userName} />
 
       <div className={`${sidebarOpen ? "lg:pl-64" : "lg:pl-20"} min-h-screen transition-[padding] duration-300`}>
         <Topbar

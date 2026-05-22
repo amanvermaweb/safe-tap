@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Bell, House, Menu, Route, Settings, ShieldCheck, LogOut } from "lucide-react";
 import { useState } from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -14,7 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 import type { ParentNavItem, ParentNavKey } from "@/types/parent";
 
 const iconByKey = {
@@ -27,6 +27,7 @@ const iconByKey = {
 interface ParentsSidebarProps {
   navItems: ParentNavItem[];
   activeKey: ParentNavKey;
+  userName: string;
 }
 
 function SidebarNav({
@@ -73,7 +74,17 @@ function SidebarNav({
   );
 }
 
-function SidebarBody({ navItems, activeKey }: { navItems: ParentNavItem[]; activeKey: ParentNavKey }) {
+function SidebarBody({
+  navItems,
+  activeKey,
+  userName,
+}: {
+  navItems: ParentNavItem[];
+  activeKey: ParentNavKey;
+  userName: string;
+}) {
+  const userInitials = getInitials(userName);
+
   return (
     <>
       <div>
@@ -97,24 +108,28 @@ function SidebarBody({ navItems, activeKey }: { navItems: ParentNavItem[]; activ
         <div className="rounded-3xl border border-[#e0e3e5] bg-white/70 p-3.5 backdrop-blur-xl">
           <div className="flex items-center gap-3">
             <Avatar className="h-11 w-11">
-              <AvatarImage
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=320&q=80"
-                alt="Parent profile"
-              />
-              <AvatarFallback>AN</AvatarFallback>
+              <AvatarFallback>{userInitials}</AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-sm font-semibold text-[#191c1e]">Anita Nair</p>
+              <p className="text-sm font-semibold text-[#191c1e]">{userName}</p>
               <p className="text-xs text-[#45464d]">Parent account</p>
             </div>
           </div>
         </div>
         <button
           onClick={async () => {
-            await fetch("/api/auth/logout", { method: "POST" });
-            window.location.href = "/sign-in";
+            try {
+              const response = await fetch("/api/auth/logout", { method: "POST" });
+              if (response.ok) {
+                window.location.href = "/sign-in";
+              } else {
+                console.error("Logout failed with status:", response.status);
+              }
+            } catch (error) {
+              console.error("Logout error:", error);
+            }
           }}
-          className="w-full group flex items-center gap-3 rounded-full px-3 py-2.5 text-sm font-medium text-[#45464d] hover:bg-red-50 hover:text-red-600 transition-all"
+          className="w-full group flex items-center gap-3 rounded-full px-3 py-2.5 text-sm font-medium text-[#45464d] hover:bg-red-50 hover:text-red-600 transition-all cursor-pointer"
         >
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/70 text-[#45464d] group-hover:bg-white group-hover:text-red-600 transition">
             <LogOut className="h-4 w-4" />
@@ -126,8 +141,9 @@ function SidebarBody({ navItems, activeKey }: { navItems: ParentNavItem[]; activ
   );
 }
 
-export function ParentsSidebar({ navItems, activeKey }: ParentsSidebarProps) {
+export function ParentsSidebar({ navItems, activeKey, userName }: ParentsSidebarProps) {
   const [open, setOpen] = useState(false);
+  const userInitials = getInitials(userName);
 
   return (
     <>
@@ -153,19 +169,26 @@ export function ParentsSidebar({ navItems, activeKey }: ParentsSidebarProps) {
               <div className="rounded-3xl border border-[#e0e3e5] bg-white/70 p-3.5 backdrop-blur-xl">
                 <div className="flex items-center gap-3">
                   <Avatar className="h-11 w-11">
-                    <AvatarImage src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=320&q=80" alt="Parent profile" />
-                    <AvatarFallback>AN</AvatarFallback>
+                    <AvatarFallback>{userInitials}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm font-semibold text-[#191c1e]">Anita Nair</p>
+                    <p className="text-sm font-semibold text-[#191c1e]">{userName}</p>
                     <p className="text-xs text-[#45464d]">Parent account</p>
                   </div>
                 </div>
               </div>
               <button
                 onClick={async () => {
-                  await fetch("/api/auth/logout", { method: "POST" });
-                  window.location.href = "/sign-in";
+                  try {
+                    const response = await fetch("/api/auth/logout", { method: "POST" });
+                    if (response.ok) {
+                      window.location.href = "/sign-in";
+                    } else {
+                      console.error("Logout failed with status:", response.status);
+                    }
+                  } catch (error) {
+                    console.error("Logout error:", error);
+                  }
                 }}
                 className="w-full group flex items-center gap-3 rounded-full px-3 py-2.5 text-sm font-medium text-[#45464d] hover:bg-red-50 hover:text-red-600 transition-all"
               >
@@ -179,10 +202,10 @@ export function ParentsSidebar({ navItems, activeKey }: ParentsSidebarProps) {
         </Sheet>
       </header>
 
-      <aside className="glass-sidebar fixed inset-y-0 left-0 hidden w-68 px-5 py-6 lg:flex lg:flex-col">
+      <aside className="glass-sidebar fixed inset-y-0 left-0 z-20 hidden w-68 px-5 py-6 lg:flex lg:flex-col">
         <div className="flex h-full flex-col">
           <div className="mb-6">
-            <SidebarBody navItems={navItems} activeKey={activeKey} />
+            <SidebarBody navItems={navItems} activeKey={activeKey} userName={userName} />
           </div>
         </div>
       </aside>

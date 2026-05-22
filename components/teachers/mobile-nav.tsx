@@ -3,15 +3,19 @@
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import { navigationItems, teacherProfile } from "@/lib/teacher-data";
+import { getInitials } from "@/lib/utils";
 import Link from "next/link";
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
+  userName: string;
 }
 
 
-export function MobileNav({ isOpen, onClose }: MobileNavProps) {
+export function MobileNav({ isOpen, onClose, userName }: MobileNavProps) {
+  const userInitials = getInitials(userName);
+
   return (
     <>
       {/* Backdrop */}
@@ -44,11 +48,11 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
         <div className="border-b border-[#e0e3e5] px-6 py-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#00687a] text-sm font-semibold text-white shadow-[0_14px_24px_rgba(0,104,122,0.18)]">
-              {teacherProfile.avatar}
+              {userInitials}
             </div>
             <div className="min-w-0 flex-1">
               <h3 className="truncate font-semibold text-[#191c1e]">
-                {teacherProfile.name}
+                {userName}
               </h3>
               <p className="truncate text-xs text-[#45464d]">
                 {teacherProfile.grade}

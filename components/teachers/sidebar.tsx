@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { navigationItems, teacherProfile } from "@/lib/teacher-data";
+import { getInitials } from "@/lib/utils";
 import {
   LayoutDashboard,
   CheckCircle2,
@@ -21,7 +22,13 @@ const iconMap: Record<string, React.ComponentType<{ size: number }>> = {
   Bell,
 };
 
-export function Sidebar() {
+interface SidebarProps {
+  userName: string;
+}
+
+export function Sidebar({ userName }: SidebarProps) {
+  const userInitials = getInitials(userName);
+
   return (
     <motion.aside
       initial={{ x: -300 }}
@@ -32,11 +39,11 @@ export function Sidebar() {
       <div className="border-b border-[#e0e3e5] px-5 py-6">
         <div className="flex items-center gap-3 mb-3">
           <div className="flex h-11 w-11 items-center justify-center shrink-0 rounded-full bg-[#00687a] text-sm font-semibold text-white shadow-[0_16px_24px_rgba(0,104,122,0.18)]">
-            {teacherProfile.avatar}
+            {userInitials}
           </div>
           <div className="min-w-0 flex-1">
             <h3 className="text-sm font-semibold text-[#191c1e] truncate">
-              {teacherProfile.name}
+              {userName}
             </h3>
             <p className="text-xs text-[#45464d] truncate">
               {teacherProfile.grade}
@@ -93,10 +100,18 @@ export function Sidebar() {
       <div className="border-t border-[#e0e3e5] px-3 py-4">
         <button
           onClick={async () => {
-            await fetch("/api/auth/logout", { method: "POST" });
-            window.location.href = "/sign-in";
+            try {
+              const response = await fetch("/api/auth/logout", { method: "POST" });
+              if (response.ok) {
+                window.location.href = "/sign-in";
+              } else {
+                console.error("Logout failed with status:", response.status);
+              }
+            } catch (error) {
+              console.error("Logout error:", error);
+            }
           }}
-          className="w-full relative group flex items-center gap-3 rounded-[1.25rem] px-3.5 py-2.5 text-label text-[#45464d] hover:bg-red-50 hover:text-red-600 transition-all duration-200"
+          className="w-full relative group flex items-center gap-3 rounded-[1.25rem] px-3.5 py-2.5 text-label text-[#45464d] hover:bg-red-50 hover:text-red-600 transition-all duration-200 cursor-pointer"
         >
           <div className="relative z-10 shrink-0">
             <LogOut size={20} />

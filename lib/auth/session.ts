@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { jwtVerify, jwtSign } from "./jwt";
+import { decodeSessionCookie, encodeSessionCookie } from "@/lib/auth/session-cookie";
 
 export interface SessionData {
   id: string;
@@ -12,17 +12,18 @@ const SESSION_COOKIE = "auth_session";
 const SESSION_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
 
 export async function createSession(user: SessionData): Promise<string> {
-  const token = await jwtSign(user);
+  const session = encodeSessionCookie(user);
   const cookieStore = await cookies();
   
-  cookieStore.set(SESSION_COOKIE, token, {
+  cookieStore.set(SESSION_COOKIE, session, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
+    path: "/",
     maxAge: SESSION_EXPIRY / 1000
   });
 
-  return token;
+  return session;
 }
 
 export async function getSession(): Promise<SessionData | null> {
@@ -33,15 +34,13 @@ export async function getSession(): Promise<SessionData | null> {
     return null;
   }
 
-  try {
-    const session = await jwtVerify<SessionData>(token);
-    return session;
-  } catch {
-    return null;
-  }
+  return decodeSessionCookie(token);
 }
 
 export async function destroySession(): Promise<void> {
   const cookieStore = await cookies();
-  cookieStore.delete(SESSION_COOKIE);
+  cookieStore.delete({
+    name: SESSION_COOKIE,
+    path: "/"
+  });
 }

@@ -2,30 +2,14 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { ArrowRight, BusFront, ShieldCheck, Users } from "lucide-react";
 
 const RoutesMap = dynamic(
   () => import("@/components/admin/routes-map").then((mod) => mod.RoutesMap),
-  { ssr: false }
+  { ssr: false },
 );
 
 export default function Home() {
-  const router = useRouter();
-  const [isSigningOut, setIsSigningOut] = useState(false);
-
-  async function handleSignOut() {
-    setIsSigningOut(true);
-    try {
-      await fetch("/api/auth/logout", { method: "POST" });
-      router.push("/sign-in");
-      router.refresh();
-    } finally {
-      setIsSigningOut(false);
-    }
-  }
-
   return (
     <div className="app-shell relative overflow-hidden">
       <div className="surface-grid pointer-events-none absolute inset-0 opacity-50" />
@@ -37,7 +21,9 @@ export default function Home() {
                 A premium safety command center for school mobility.
               </h1>
               <p className="max-w-2xl text-lg leading-8 text-[#45464d] sm:text-xl">
-                Track buses, monitor arrivals, and keep administrators, teachers, and parents aligned inside one calm, high-trust interface.
+                Track buses, monitor arrivals, and keep administrators,
+                teachers, and parents aligned inside one calm, high-trust
+                interface.
               </p>
             </div>
 
@@ -56,22 +42,25 @@ export default function Home() {
               >
                 Sign up
               </Link>
-
-              <button
-                type="button"
-                onClick={handleSignOut}
-                disabled={isSigningOut}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#d3d8dc] bg-white/75 px-6 py-3.5 text-sm font-semibold text-[#45464d] backdrop-blur-2xl transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isSigningOut ? "Signing out..." : "Sign out"}
-              </button>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3 object-center justify-center">
               {[
-                { icon: BusFront, title: "Live fleet", copy: "Real-time bus visibility with soft alerts." },
-                { icon: Users, title: "Class sync", copy: "Attendance and parent notifications in one place." },
-                { icon: ShieldCheck, title: "Safety first", copy: "Designed for reliability, clarity, and trust." },
+                {
+                  icon: BusFront,
+                  title: "Live fleet",
+                  copy: "Real-time bus visibility with soft alerts.",
+                },
+                {
+                  icon: Users,
+                  title: "Class sync",
+                  copy: "Attendance and parent notifications in one place.",
+                },
+                {
+                  icon: ShieldCheck,
+                  title: "Safety first",
+                  copy: "Designed for reliability, clarity, and trust.",
+                },
               ].map((item) => {
                 const Icon = item.icon;
 
@@ -80,8 +69,12 @@ export default function Home() {
                     <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00201c] text-white">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h2 className="mt-4 text-base font-semibold text-[#191c1e]">{item.title}</h2>
-                    <p className="mt-1 text-sm leading-6 text-[#45464d]">{item.copy}</p>
+                    <h2 className="mt-4 text-base font-semibold text-[#191c1e]">
+                      {item.title}
+                    </h2>
+                    <p className="mt-1 text-sm leading-6 text-[#45464d]">
+                      {item.copy}
+                    </p>
                   </div>
                 );
               })}
@@ -90,38 +83,6 @@ export default function Home() {
           <section className="glass-panel-strong rounded-[2.5rem] p-5 sm:p-6 lg:p-8 w-full">
             <RoutesMap />
           </section>
-          {/* <section className="glass-panel-strong rounded-[2.5rem] p-5 sm:p-6 lg:p-8">
-            <div className="flex items-center justify-between gap-3 border-b border-[#e0e3e5] pb-5">
-              <div>
-                <p className="section-heading">Control suite</p>
-                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-[#191c1e]">Everything in view</h2>
-              </div>
-              <div className="rounded-full bg-[#57dffe] px-3 py-1.5 text-xs font-semibold text-[#001f26]">
-                Live
-              </div>
-            </div>
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="glass-panel rounded-4xl p-5">
-                <p className="section-heading">RFID</p>
-                <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#191c1e]">892</p>
-                <p className="mt-2 text-sm text-[#45464d]">Scans today</p>
-              </div>
-              <div className="glass-panel rounded-4xl p-5">
-                <p className="section-heading">Fleet health</p>
-                <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[#191c1e]">94%</p>
-                <p className="mt-2 text-sm text-[#45464d]">Attendance accuracy</p>
-              </div>
-            </div>
-
-            <div className="mt-4 glass-panel rounded-4xl p-5">
-              <div className="flex items-center gap-3 text-sm font-medium text-[#45464d]">
-                <MapPinned className="h-4 w-4 text-[#00687a]" />
-                Campus route visibility and live location tracking
-              </div>
-              <div className="surface-grid mt-4 aspect-16/10 rounded-4xl border border-[#e0e3e5] bg-[radial-gradient(circle_at_top,rgba(87,223,254,0.2),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.95),rgba(236,238,240,0.95))]" />
-            </div>
-          </section> */}
         </div>
       </main>
     </div>

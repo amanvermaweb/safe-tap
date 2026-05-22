@@ -27,7 +27,11 @@ const itemVariants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.32, ease: "easeOut" } },
 };
 
-export function ParentsDashboard() {
+interface ParentsDashboardProps {
+  userName: string;
+}
+
+export function ParentsDashboard({ userName }: ParentsDashboardProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -39,7 +43,7 @@ export function ParentsDashboard() {
     <div className="app-shell relative min-h-screen overflow-hidden text-[#191c1e]">
       <div className="surface-grid pointer-events-none absolute inset-0 opacity-45" />
 
-      <ParentsSidebar navItems={parentNavItems} activeKey="dashboard" />
+      <ParentsSidebar navItems={parentNavItems} activeKey="dashboard" userName={userName} />
 
       <main className="relative z-10 px-4 pb-8 pt-6 sm:px-6 sm:pb-10 lg:pl-76 lg:pr-8 lg:pt-8">
         <motion.div variants={containerVariants} initial="hidden" animate="show" className="mx-auto w-full max-w-345">
