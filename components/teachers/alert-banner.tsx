@@ -50,14 +50,18 @@ export function AlertBannerComponent({
       exit={{ opacity: 0, y: -12 }}
       className={`flex items-start gap-4 rounded-3xl border px-5 py-4 shadow-sm ${config.bgColor} ${config.borderColor}`}
     >
-      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${config.accentColor}`}>
+      <div
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${config.accentColor}`}
+      >
         <Icon size={18} className={config.textColor} />
       </div>
 
       <div className="min-w-0 flex-1 space-y-1">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1">
-            <p className={`text-sm font-semibold ${config.textColor}`}>{title}</p>
+            <p className={`text-sm font-semibold ${config.textColor}`}>
+              {title}
+            </p>
             <p className="text-sm text-[#45464d]">{message}</p>
           </div>
 

@@ -13,7 +13,7 @@ export function LiveIndicator({ className }: LiveIndicatorProps) {
     <div
       className={cn(
         "inline-flex items-center gap-2 rounded-full border border-[#ffdad6] bg-white/90 px-3 py-1 text-[11px] font-semibold tracking-[0.08em] text-[#ba1a1a]",
-        className
+        className,
       )}
       aria-label="Live tracking enabled"
     >

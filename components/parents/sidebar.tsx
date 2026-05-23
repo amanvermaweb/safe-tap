@@ -1,7 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { Bell, House, Menu, Route, Settings, ShieldCheck, LogOut } from "lucide-react";
+import {
+  Bell,
+  House,
+  Menu,
+  Route,
+  Settings,
+  ShieldCheck,
+  LogOut,
+} from "lucide-react";
 import { useState } from "react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -54,14 +62,16 @@ function SidebarNav({
               "group flex items-center gap-3 rounded-full px-3 py-2.5 text-sm font-medium transition-all",
               active
                 ? "bg-[#57dffe] text-[#001f26] shadow-[0_12px_24px_rgba(0,104,122,0.1)]"
-                : "text-[#45464d] hover:bg-white/70 hover:text-[#191c1e]"
+                : "text-[#45464d] hover:bg-white/70 hover:text-[#191c1e]",
             )}
             aria-current={active ? "page" : undefined}
           >
             <span
               className={cn(
                 "flex h-8 w-8 items-center justify-center rounded-full transition",
-                active ? "bg-[#006172] text-white" : "bg-white/70 text-[#45464d] group-hover:bg-white"
+                active
+                  ? "bg-[#006172] text-white"
+                  : "bg-white/70 text-[#45464d] group-hover:bg-white",
               )}
             >
               <Icon className="h-4 w-4" />
@@ -88,13 +98,17 @@ function SidebarBody({
   return (
     <div className="flex h-full flex-col">
       <div>
-        <p className="text-xs font-semibold text-center uppercase tracking-[0.11em] text-slate-400">SafeTap</p>
+        <p className="text-xs font-semibold text-center uppercase tracking-[0.11em] text-slate-400">
+          SafeTap
+        </p>
         <div className="mt-2 flex items-center gap-2">
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
             <ShieldCheck className="h-5 w-5" />
           </span>
           <div>
-            <h2 className="text-sm font-semibold text-[#191c1e]">Parent Dashboard</h2>
+            <h2 className="text-sm font-semibold text-[#191c1e]">
+              Parent Dashboard
+            </h2>
             <p className="text-xs text-[#45464d]">IIT Delhi</p>
           </div>
         </div>
@@ -119,7 +133,9 @@ function SidebarBody({
         <button
           onClick={async () => {
             try {
-              const response = await fetch("/api/auth/logout", { method: "POST" });
+              const response = await fetch("/api/auth/logout", {
+                method: "POST",
+              });
               if (response.ok) {
                 window.location.href = "/sign-in";
               } else {
@@ -141,7 +157,11 @@ function SidebarBody({
   );
 }
 
-export function ParentsSidebar({ navItems, activeKey, userName }: ParentsSidebarProps) {
+export function ParentsSidebar({
+  navItems,
+  activeKey,
+  userName,
+}: ParentsSidebarProps) {
   const [open, setOpen] = useState(false);
   const userInitials = getInitials(userName);
 
@@ -149,22 +169,36 @@ export function ParentsSidebar({ navItems, activeKey, userName }: ParentsSidebar
     <>
       <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-white/60 bg-white/78 px-4 backdrop-blur-3xl lg:hidden">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-[#6a7078]">SafeTap</p>
-          <p className="text-sm font-semibold text-[#191c1e]">Parent Dashboard</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-[#6a7078]">
+            SafeTap
+          </p>
+          <p className="text-sm font-semibold text-[#191c1e]">
+            Parent Dashboard
+          </p>
         </div>
 
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon" aria-label="Open navigation menu">
+            <Button
+              variant="outline"
+              size="icon"
+              aria-label="Open navigation menu"
+            >
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="flex flex-col pb-5">
             <SheetHeader>
               <SheetTitle>Navigation</SheetTitle>
-              <SheetDescription>Track your child and route updates in real time.</SheetDescription>
+              <SheetDescription>
+                Track your child and route updates in real time.
+              </SheetDescription>
             </SheetHeader>
-            <SidebarNav navItems={navItems} activeKey={activeKey} onSelect={() => setOpen(false)} />
+            <SidebarNav
+              navItems={navItems}
+              activeKey={activeKey}
+              onSelect={() => setOpen(false)}
+            />
             <div className="mt-auto space-y-3">
               <div className="rounded-3xl border border-[#e0e3e5] bg-white/70 p-3.5 backdrop-blur-xl self-end">
                 <div className="flex items-center gap-3">
@@ -172,7 +206,9 @@ export function ParentsSidebar({ navItems, activeKey, userName }: ParentsSidebar
                     <AvatarFallback>{userInitials}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm font-semibold text-[#191c1e]">{userName}</p>
+                    <p className="text-sm font-semibold text-[#191c1e]">
+                      {userName}
+                    </p>
                     <p className="text-xs text-[#45464d]">Parent account</p>
                   </div>
                 </div>
@@ -180,11 +216,16 @@ export function ParentsSidebar({ navItems, activeKey, userName }: ParentsSidebar
               <button
                 onClick={async () => {
                   try {
-                    const response = await fetch("/api/auth/logout", { method: "POST" });
+                    const response = await fetch("/api/auth/logout", {
+                      method: "POST",
+                    });
                     if (response.ok) {
                       window.location.href = "/sign-in";
                     } else {
-                      console.error("Logout failed with status:", response.status);
+                      console.error(
+                        "Logout failed with status:",
+                        response.status,
+                      );
                     }
                   } catch (error) {
                     console.error("Logout error:", error);
@@ -203,7 +244,11 @@ export function ParentsSidebar({ navItems, activeKey, userName }: ParentsSidebar
       </header>
 
       <aside className="glass-sidebar fixed inset-y-0 left-0 z-20 hidden w-68 px-5 py-6 lg:flex lg:flex-col">
-        <SidebarBody navItems={navItems} activeKey={activeKey} userName={userName} />
+        <SidebarBody
+          navItems={navItems}
+          activeKey={activeKey}
+          userName={userName}
+        />
       </aside>
     </>
   );

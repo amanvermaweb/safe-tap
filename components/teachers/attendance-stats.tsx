@@ -51,7 +51,10 @@ export function AttendanceStatsCards(props: AttendanceStatsProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            whileHover={{ scale: 1.02, boxShadow: "0 10px 24px rgba(0,0,0,0.1)" }}
+            whileHover={{
+              scale: 1.02,
+              boxShadow: "0 10px 24px rgba(0,0,0,0.1)",
+            }}
             className={`glass-panel rounded-4xl bg-linear-to-br ${card.bgColor} p-6 transition-all`}
           >
             <div className="flex items-start justify-between">
@@ -69,7 +72,6 @@ export function AttendanceStatsCards(props: AttendanceStatsProps) {
                   {card.key === "absent" && "Not present"}
                 </p>
               </div>
-              
             </div>
           </motion.div>
         );

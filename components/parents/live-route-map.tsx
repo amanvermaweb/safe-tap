@@ -2,7 +2,14 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { DivIcon } from "leaflet";
-import { MapContainer, Marker, Polyline, TileLayer, Tooltip, ZoomControl } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Polyline,
+  TileLayer,
+  Tooltip,
+  ZoomControl,
+} from "react-leaflet";
 
 import type { MapStop } from "@/types/parent";
 
@@ -11,13 +18,19 @@ const TILE_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const TILE_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-function toMeters([lat1, lng1]: [number, number], [lat2, lng2]: [number, number]) {
+function toMeters(
+  [lat1, lng1]: [number, number],
+  [lat2, lng2]: [number, number],
+) {
   const rad = Math.PI / 180;
   const dLat = (lat2 - lat1) * rad;
   const dLng = (lng2 - lng1) * rad;
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    Math.cos(lat1 * rad) *
+      Math.cos(lat2 * rad) *
+      Math.sin(dLng / 2) *
+      Math.sin(dLng / 2);
 
   return 2 * 6371000 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
@@ -85,7 +98,10 @@ function createBusIcon(label: string) {
   });
 }
 
-function nearestPointOnPolyline(pt: [number, number], poly: [number, number][]) {
+function nearestPointOnPolyline(
+  pt: [number, number],
+  poly: [number, number][],
+) {
   if (!poly || poly.length === 0) return pt;
 
   let best: [number, number] = poly[0];
@@ -127,10 +143,15 @@ interface LiveRouteMapProps {
 
 export function LiveRouteMap({ stops, routeLabel }: LiveRouteMapProps) {
   const routePoints = useMemo(
-    () => (stops.length > 1 ? stops.map((stop) => stop.coordinates) : [CAMPUS_CENTER]),
-    [stops]
+    () =>
+      stops.length > 1
+        ? stops.map((stop) => stop.coordinates)
+        : [CAMPUS_CENTER],
+    [stops],
   );
-  const [routedPoints, setRoutedPoints] = useState<[number, number][] | null>(null);
+  const [routedPoints, setRoutedPoints] = useState<[number, number][] | null>(
+    null,
+  );
 
   useEffect(() => {
     let aborted = false;
@@ -152,7 +173,9 @@ export function LiveRouteMap({ stops, routeLabel }: LiveRouteMapProps) {
         if (!res.ok) throw new Error("Routing request failed");
 
         const data = await res.json();
-        const geo = data?.routes?.[0]?.geometry?.coordinates as [number, number][] | undefined;
+        const geo = data?.routes?.[0]?.geometry?.coordinates as
+          | [number, number][]
+          | undefined;
 
         if (!aborted && geo && geo.length > 0) {
           // convert from [lng, lat] to [lat, lng]
@@ -172,7 +195,10 @@ export function LiveRouteMap({ stops, routeLabel }: LiveRouteMapProps) {
   }, [routePoints]);
 
   const effectiveRoute = routedPoints ?? routePoints;
-  const interpolatedPoints = useMemo(() => interpolateRoute(effectiveRoute, 24), [effectiveRoute]);
+  const interpolatedPoints = useMemo(
+    () => interpolateRoute(effectiveRoute, 24),
+    [effectiveRoute],
+  );
   const [busIndex, setBusIndex] = useState(0);
 
   useEffect(() => {
@@ -187,9 +213,13 @@ export function LiveRouteMap({ stops, routeLabel }: LiveRouteMapProps) {
     return () => window.clearInterval(timer);
   }, [interpolatedPoints.length]);
 
-  const busPosition = interpolatedPoints[busIndex] ?? routePoints[0] ?? CAMPUS_CENTER;
+  const busPosition =
+    interpolatedPoints[busIndex] ?? routePoints[0] ?? CAMPUS_CENTER;
   const busLabel = routeLabel.split(" - ")[0] ?? "Bus B12";
-  const snappedBusPosition = nearestPointOnPolyline(busPosition, effectiveRoute);
+  const snappedBusPosition = nearestPointOnPolyline(
+    busPosition,
+    effectiveRoute,
+  );
 
   return (
     <div className="relative overflow-hidden rounded-3xl border border-[#e0e3e5] bg-white/70">
@@ -203,11 +233,21 @@ export function LiveRouteMap({ stops, routeLabel }: LiveRouteMapProps) {
         >
           <ZoomControl position="topright" />
           <TileLayer url={TILE_URL} attribution={TILE_ATTRIBUTION} />
-          <Polyline pathOptions={{ color: "#94a3b8", weight: 6, opacity: 0.42 }} positions={effectiveRoute} />
-          <Polyline pathOptions={{ color: "#00687a", weight: 4, opacity: 0.95 }} positions={effectiveRoute} />
+          <Polyline
+            pathOptions={{ color: "#94a3b8", weight: 6, opacity: 0.42 }}
+            positions={effectiveRoute}
+          />
+          <Polyline
+            pathOptions={{ color: "#00687a", weight: 4, opacity: 0.95 }}
+            positions={effectiveRoute}
+          />
 
           {stops.map((stop) => (
-            <Marker key={stop.id} position={stop.coordinates} icon={createStopIcon()}>
+            <Marker
+              key={stop.id}
+              position={stop.coordinates}
+              icon={createStopIcon()}
+            >
               <Tooltip direction="top" offset={[0, -10]} opacity={1} permanent>
                 <span className="rounded-full bg-white/95 px-2 py-0.5 text-[11px] font-medium text-[#45464d] shadow-sm">
                   {stop.label}
@@ -217,7 +257,12 @@ export function LiveRouteMap({ stops, routeLabel }: LiveRouteMapProps) {
           ))}
 
           <Marker position={snappedBusPosition} icon={createBusIcon(busLabel)}>
-            <Tooltip direction="top" offset={[0, -16]} opacity={1} permanent={false}>
+            <Tooltip
+              direction="top"
+              offset={[0, -16]}
+              opacity={1}
+              permanent={false}
+            >
               <span className="rounded-full bg-white/95 px-2 py-0.5 text-[11px] font-medium text-[#45464d] shadow-sm">
                 {routeLabel}
               </span>

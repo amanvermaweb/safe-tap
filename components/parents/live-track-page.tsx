@@ -40,10 +40,19 @@ export function ParentsLiveTrackPage({ userName }: ParentsLiveTrackPageProps) {
     <div className="app-shell relative min-h-screen overflow-hidden text-[#191c1e]">
       <div className="surface-grid pointer-events-none absolute inset-0 opacity-45" />
 
-      <ParentsSidebar navItems={parentNavItems} activeKey="live-track" userName={userName} />
+      <ParentsSidebar
+        navItems={parentNavItems}
+        activeKey="live-track"
+        userName={userName}
+      />
 
       <main className="relative z-10 px-4 pb-8 pt-6 sm:px-6 sm:pb-10 lg:pl-76 lg:pr-8 lg:pt-8">
-        <motion.div variants={pageVariants} initial="hidden" animate="show" className="mx-auto w-full max-w-345">
+        <motion.div
+          variants={pageVariants}
+          initial="hidden"
+          animate="show"
+          className="mx-auto w-full max-w-345"
+        >
           <motion.div variants={itemVariants}>
             <TrackingMap
               stops={parentDashboardData.stops}

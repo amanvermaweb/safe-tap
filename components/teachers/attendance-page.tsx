@@ -2,14 +2,13 @@
 
 import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
-import { BellRing, Filter, ShieldCheck, Users } from "lucide-react";
+import { Filter } from "lucide-react";
 
 import { AlertBannerComponent } from "@/components/teachers/alert-banner";
-import { AttendanceStatsCards } from "@/components/teachers/attendance-stats";
 import { FilterBar } from "@/components/teachers/filter-bar";
 import { StudentRoster } from "@/components/teachers/student-roster";
 import { TeacherPageFrame } from "@/components/teachers/page-frame";
-import { attendanceStats, alertBanner, students } from "@/lib/teacher-data";
+import { alertBanner, students } from "@/lib/teacher-data";
 import { type StudentStatus } from "@/types/teacher";
 
 interface AttendancePageProps {
@@ -31,7 +30,10 @@ export function AttendancePage({ userName }: AttendancePageProps) {
   });
 
   return (
-    <TeacherPageFrame userName={userName} searchPlaceholder="Search attendance records...">
+    <TeacherPageFrame
+      userName={userName}
+      searchPlaceholder="Search attendance records..."
+    >
       <div className="space-y-8">
         <motion.section
           initial={{ opacity: 0, y: 20 }}
@@ -43,12 +45,11 @@ export function AttendancePage({ userName }: AttendancePageProps) {
             <h1 className="text-4xl font-semibold tracking-[-0.04em] text-[#191c1e] sm:text-5xl">
               Morning Attendance
             </h1>
-            <p className="text-base text-[#45464d]">{dateFormatter.format(new Date())}</p>
+            <p className="text-base text-[#45464d]">
+              {dateFormatter.format(new Date())}
+            </p>
           </div>
-
         </motion.section>
-
-        <AttendanceStatsCards {...attendanceStats} />
 
         <AlertBannerComponent {...alertBanner} />
 
@@ -60,10 +61,6 @@ export function AttendancePage({ userName }: AttendancePageProps) {
                 <h2 className="mt-1 text-2xl font-semibold tracking-[-0.03em] text-[#191c1e]">
                   Review student status
                 </h2>
-              </div>
-              <div className="hidden items-center gap-2 rounded-full border border-[#e0e3e5] bg-white/70 px-3 py-2 text-xs font-medium text-[#45464d] sm:flex">
-                <BellRing className="h-4 w-4 text-[#006172]" />
-                Parents notified for delayed arrivals
               </div>
             </div>
 
@@ -83,8 +80,12 @@ export function AttendancePage({ userName }: AttendancePageProps) {
                   <Filter className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-[#191c1e]">Attendance filters</p>
-                  <p className="text-xs text-[#45464d]">Highlight present, delayed, bus, or absent students</p>
+                  <p className="text-sm font-semibold text-[#191c1e]">
+                    Attendance filters
+                  </p>
+                  <p className="text-xs text-[#45464d]">
+                    Highlight present, delayed, bus, or absent students
+                  </p>
                 </div>
               </div>
 

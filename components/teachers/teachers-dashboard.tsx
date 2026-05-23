@@ -62,54 +62,7 @@ export function TeachersDashboard({ userName }: TeachersDashboardProps) {
 
           <AttendanceStatsCards {...attendanceStats} />
 
-          <section className="grid gap-4 md:grid-cols-3">
-            {[
-              {
-                href: "/teachers/attendance",
-                icon: CheckCircle2,
-                title: "Attendance",
-                description: "Review check-ins and follow up on delayed students.",
-              },
-              {
-                href: "/teachers/students",
-                icon: Users,
-                title: "Students",
-                description: "Search the roster, sort by status, and open student details.",
-              },
-              {
-                href: "/teachers/tracking",
-                icon: MapPin,
-                title: "Live Tracking",
-                description: "Monitor bus routes, ETAs, and route progress live.",
-              },
-            ].map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.08 }}
-                >
-                  <Link href={item.href} className="group block h-full">
-                    <div className="glass-panel h-full rounded-4xl p-5 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-[0_18px_34px_rgba(15,23,42,0.1)]">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#def8ff] text-[#006172]">
-                          <Icon size={18} />
-                        </div>
-                        <ArrowUpRight className="h-5 w-5 text-[#6a7078] transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                      </div>
-                      <h3 className="mt-4 text-lg font-semibold tracking-[-0.02em] text-[#191c1e]">
-                        {item.title}
-                      </h3>
-                      <p className="mt-2 text-sm text-[#45464d]">{item.description}</p>
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </section>
+          
 
           <FilterBar onStatusChange={handleStatusChange} />
 

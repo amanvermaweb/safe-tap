@@ -18,8 +18,13 @@ export function MobileNav({ isOpen, onClose, userName }: MobileNavProps) {
   const userInitials = getInitials(userName);
   const pathname = usePathname();
 
-  const isActivePath = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+  const isActivePath = (href: string) => {
+    if (href === "/teachers") {
+      return pathname === href;
+    }
+
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <>
