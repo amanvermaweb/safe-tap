@@ -77,16 +77,7 @@ export default function SignInPage() {
               Use your SafeTAP account to continue.
             </p>
           </div>
-
-          <div className="mb-6 rounded-3xl border border-[#57dffe]/30 bg-[#f7f9fb]/80 p-4 text-sm text-[#2a3b40] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
-            <p className="font-semibold text-[#00687a]">Demo credentials</p>
-            <div className="mt-2 space-y-1">
-              <p>Admin: admin@safetap.com / admin123</p>
-              <p>Teacher: teacher@safetap.com / teacher123</p>
-              <p>Parent: parent@safetap.com / parent123</p>
-            </div>
-          </div>
-
+          
           {error && (
             <div className="mb-5 rounded-[1.25rem] border border-[#ba1a1a]/20 bg-[#fff1f1] p-4 text-sm text-[#8b1d1d]">
               {error}
