@@ -23,7 +23,6 @@ export function StatusBanner({ child }: StatusBannerProps) {
 
           <div>
             <h1 className="mt-1 text-lg font-semibold leading-6 text-[#191c1e] sm:text-2xl">{child.name}</h1>
-            <p className="mt-1 text-sm text-[#45464d]">{child.statusDetail}</p>
           </div>
         </div>
 

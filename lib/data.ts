@@ -22,7 +22,7 @@ export const buses: Bus[] = [
   {
     id: '3',
     number: '08',
-    route: 'Downtown',
+    route: 'Main Road',
     status: 'active',
     position: { x: 55, y: 45 },
     driver: 'James Chen',
@@ -62,7 +62,7 @@ export const students: Student[] = [
     id: '4',
     name: 'Shivansh Rathore',
     bus: 'Bus 08',
-    route: 'Downtown',
+    route: 'Dronagiri Hostel',
     timestamp: '08:05 AM',
     status: 'boarded',
     avatar: 'SR',

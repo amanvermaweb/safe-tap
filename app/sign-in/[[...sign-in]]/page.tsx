@@ -3,11 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Eye,
-  EyeOff,
-} from "lucide-react";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -77,7 +73,7 @@ export default function SignInPage() {
               Use your SafeTAP account to continue.
             </p>
           </div>
-          
+
           {error && (
             <div className="mb-5 rounded-[1.25rem] border border-[#ba1a1a]/20 bg-[#fff1f1] p-4 text-sm text-[#8b1d1d]">
               {error}
@@ -125,7 +121,7 @@ export default function SignInPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((value) => !value)}
-                  className="absolute inset-y-0 right-0 flex items-center justify-center px-4 text-[#45464d] transition hover:text-[#191c1e]"
+                  className="absolute inset-y-0 right-0 flex items-center justify-center px-4 text-[#45464d] transition cursor-pointer hover:text-[#191c1e]"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -140,30 +136,13 @@ export default function SignInPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full justify-center rounded-2xl! h-auto! min-h-14 px-6 text-sm font-semibold"
+              className="w-full justify-center rounded-2xl! h-auto! min-h-14 px-6 text-sm font-semibold cursor-pointer"
             >
               {loading ? "Signing in..." : "Sign in"}
               {!loading && <ArrowRight className="h-4 w-4" />}
             </Button>
           </form>
 
-          <div className="my-8 flex items-center gap-4">
-            <div className="h-px flex-1 bg-[#c6c6cd]/70" />
-            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6a7078]">
-              or
-            </span>
-            <div className="h-px flex-1 bg-[#c6c6cd]/70" />
-          </div>
-
-          <p className="text-center text-sm text-[#45464d]">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="/sign-up"
-              className="font-semibold text-[#00687a] transition hover:text-[#005867]"
-            >
-              Sign up
-            </Link>
-          </p>
         </section>
       </main>
     </div>

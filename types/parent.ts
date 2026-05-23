@@ -11,7 +11,6 @@ export interface ChildStatus {
   name: string;
   avatarUrl: string;
   statusText: string;
-  statusDetail: string;
   timestampLabel: string;
   etaMinutes: number;
   currentStop: string;

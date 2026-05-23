@@ -11,10 +11,9 @@ export const parentDashboardData: ParentDashboardData = {
     name: "Aarav Mehta",
     avatarUrl: "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&w=320&q=80",
     statusText: "Boarded safely",
-    statusDetail: "Seat 12A confirmed via RFID",
     timestampLabel: "Updated 7:42 AM",
     etaMinutes: 14,
-    currentStop: "Approaching Maple Avenue Stop",
+    currentStop: "Approaching Seminar Hall",
   },
   driver: {
     id: "driver-04",
@@ -30,7 +29,7 @@ export const parentDashboardData: ParentDashboardData = {
       id: "activity-01",
       type: "waiting",
       title: "Waiting at stop",
-      location: "Maple Avenue",
+      location: "Seminar Hall",
       timestamp: "7:31 AM",
     },
     {

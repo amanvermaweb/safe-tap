@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { MapContainer, Polyline, TileLayer, Tooltip, ZoomControl } from 'react-leaflet';
 
 import { buses } from '@/lib/data';
+import { fetchRoutedPoints } from '@/lib/route';
 
 const CAMPUS_CENTER: [number, number] = [28.5449, 77.1925];
 const TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -83,7 +84,7 @@ function getRoutePath(routeName: string, index: number) {
 }
 
 export function RoutesMap() {
-  const routeSeries = useMemo(
+  const initialSeries = useMemo(
     () =>
       buses.map((bus, index) => ({
         ...bus,
@@ -93,10 +94,35 @@ export function RoutesMap() {
     []
   );
 
+  const [routeSeries, setRouteSeries] = useState(initialSeries);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadAll() {
+      const updated = await Promise.all(
+        initialSeries.map(async (s) => {
+          try {
+            const routed = await fetchRoutedPoints(s.path);
+            return { ...s, path: routed ?? s.path };
+          } catch {
+            return s;
+          }
+        })
+      );
+
+      if (!cancelled) setRouteSeries(updated);
+    }
+
+    loadAll();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [initialSeries]);
+
   return (
     <section className="glass-panel overflow-hidden rounded-4xl border border-[#e0e3e5]">
-      
-
       <div className="relative min-h-136 overflow-hidden bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(236,238,240,0.92))]">
         <MapContainer
           center={CAMPUS_CENTER}

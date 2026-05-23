@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { DriverProfile } from "@/types/parent";
+import Link from "next/link";
 
 interface DriverCardProps {
   driver: DriverProfile;
@@ -30,7 +31,11 @@ export function DriverCard({ driver, loading = false }: DriverCardProps) {
   }
 
   return (
-    <motion.section whileHover={{ y: -3 }} transition={{ duration: 0.28, ease: "easeOut" }} className="glass-panel rounded-4xl p-4">
+    <motion.section
+      whileHover={{ y: -3 }}
+      transition={{ duration: 0.28, ease: "easeOut" }}
+      className="glass-panel rounded-4xl p-4"
+    >
       <h2 className="text-sm font-medium text-[#45464d]">Assigned Driver</h2>
 
       <div className="mt-4 flex items-center gap-3">
@@ -39,7 +44,9 @@ export function DriverCard({ driver, loading = false }: DriverCardProps) {
           <AvatarFallback>{driver.name.charAt(0)}</AvatarFallback>
         </Avatar>
         <div>
-          <p className="text-base font-semibold text-[#191c1e]">{driver.name}</p>
+          <p className="text-base font-semibold text-[#191c1e]">
+            {driver.name}
+          </p>
           <p className="text-sm text-[#45464d]">{driver.busLabel}</p>
           <p className="mt-1 inline-flex items-center gap-1 text-sm text-[#45464d]">
             <Star className="h-4 w-4 text-[#00687a]" />
@@ -47,11 +54,12 @@ export function DriverCard({ driver, loading = false }: DriverCardProps) {
           </p>
         </div>
       </div>
-
-      <Button className="mt-4 h-10 w-full rounded-full text-sm font-semibold cursor-pointer">
-        <Phone className="h-4 w-4" />
-        <span className="ml-2">{driver.phoneLabel}</span>
-      </Button>
+      <Link href={`tel:${driver.phone}`} className="mt-4 block">
+        <Button className="mt-4 h-10 w-full rounded-full text-sm font-semibold cursor-pointer">
+          <Phone className="h-4 w-4" />
+          <span className="ml-2">{driver.phoneLabel}</span>
+        </Button>
+      </Link>
     </motion.section>
   );
 }
